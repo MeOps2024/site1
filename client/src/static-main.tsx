@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import StaticApp from "./StaticApp";
 import "./index.css";
 
 // Initialize Meta Pixel - static version
@@ -79,4 +79,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(<StaticApp />);

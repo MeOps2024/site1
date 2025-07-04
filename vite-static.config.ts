@@ -9,23 +9,19 @@ export default defineConfig({
   build: {
     outDir: '../dist/public',
     emptyOutDir: true,
-    minify: 'terser',
+    minify: 'esbuild',
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'client/static-index.html')
+        main: path.resolve(__dirname, 'client/index.html')
       },
       output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-slot', 'lucide-react'],
           utils: ['clsx', 'tailwind-merge']
         }
-      }
-    },
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
       }
     },
     chunkSizeWarningLimit: 1000
