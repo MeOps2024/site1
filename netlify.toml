@@ -1,94 +1,55 @@
 [build]
-  command = "npm run build"
   publish = "dist/public"
-  functions = "netlify/functions"
+  command = "npm run build"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_FLAGS = "--production=false"
+  NODE_VERSION = "20"
 
-# Redirections pour SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Headers de sécurité et performance
+[dev]
+  command = "npm run dev"
+  port = 5000
+  targetPort = 5000
+
+# Form handling
+[forms]
+  settings = { spam_filter = true }
+
+# Headers for security and performance
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Cache des assets statiques
 [[headers]]
-  for = "/assets/*"
+  for = "*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/*.css"
+  for = "*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/*.js"
+  for = "*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# CSP (Content Security Policy)
 [[headers]]
-  for = "/*"
+  for = "*.jpg"
   [headers.values]
-    Content-Security-Policy = '''
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://www.google-analytics.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
-      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-      img-src 'self' data: https: blob:;
-      connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.facebook.com;
-      frame-src https://www.facebook.com;
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self' https://formspree.io;
-    '''
+    Cache-Control = "public, max-age=31536000, immutable"
 
-# Configuration des formulaires Netlify
-[forms]
-  settings = true
-
-# Gestion des erreurs
-[[redirects]]
-  from = "/404"
-  to = "/404.html"
-  status = 404
-
-# Variables d'environnement par défaut (à override en production)
-[context.production.environment]
-  VITE_GA_MEASUREMENT_ID = ""
-  VITE_META_PIXEL_ID = ""
-
-[context.deploy-preview.environment]
-  VITE_GA_MEASUREMENT_ID = ""
-  VITE_META_PIXEL_ID = ""
-
-# Performance optimizations
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.images]
-  compress = true
+[[headers]]
+  for = "*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

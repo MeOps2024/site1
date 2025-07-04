@@ -1,13 +1,13 @@
 {
   "name": "smartscale-webtech-static",
   "version": "1.0.0",
-  "description": "Site statique pour SmartScale WebTech - Agence web camerounaise",
+  "description": "Landing page statique optimisée pour SmartScale WebTech",
   "type": "module",
   "scripts": {
-    "dev": "vite --config vite-static.config.ts --host 0.0.0.0 --port 5000",
-    "build": "vite build --config vite-static.config.ts",
-    "preview": "vite preview --config vite-static.config.ts --host 0.0.0.0 --port 4173",
-    "build:netlify": "npm run build && cp netlify.toml dist/"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -21,22 +21,6 @@
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8",
-    "@radix-ui/react-slot": "^1.0.2",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.294.0",
-    "tailwind-merge": "^2.1.0",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "keywords": [
-    "smartscale",
-    "webtech",
-    "cameroun",
-    "developpement-web",
-    "site-statique",
-    "netlify"
-  ],
-  "author": "SmartScale WebTech",
-  "license": "MIT"
+    "vite": "^5.0.8"
+  }
 }
