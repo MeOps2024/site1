@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [react()],
   root: 'client',
   base: '/',
+  server: {
+    host: '0.0.0.0',
+    port: 5000,
+    allowedHosts: ['all']
+  },
   build: {
     outDir: '../dist/public',
     emptyOutDir: true,
