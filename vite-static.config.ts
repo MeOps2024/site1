@@ -1,36 +1,45 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   root: 'client',
+  base: '/',
   build: {
     outDir: '../dist/public',
     emptyOutDir: true,
+    minify: 'terser',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'client/index.html'),
+        main: path.resolve(__dirname, 'client/static-index.html')
       },
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['@radix-ui/react-slot', 'lucide-react'],
+          utils: ['clsx', 'tailwind-merge']
+        }
+      }
     },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
+    chunkSizeWarningLimit: 1000
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'client/src'),
-      '@assets': resolve(__dirname, 'attached_assets'),
-    },
+      '@': path.resolve(__dirname, 'client/src'),
+      '@assets': path.resolve(__dirname, 'attached_assets')
+    }
   },
   define: {
-    'import.meta.env.VITE_GA_MEASUREMENT_ID': JSON.stringify(process.env.VITE_GA_MEASUREMENT_ID || ''),
-    'import.meta.env.VITE_META_PIXEL_ID': JSON.stringify(process.env.VITE_META_PIXEL_ID || ''),
+    'process.env.NODE_ENV': JSON.stringify('production')
   },
-  server: {
-    port: 5000,
-    host: '0.0.0.0',
-  },
-  preview: {
-    port: 5000,
-    host: '0.0.0.0',
-  },
+  optimizeDeps: {
+    include: ['react', 'react-dom']
+  }
 });
