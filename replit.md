@@ -37,7 +37,7 @@ SmartScale WebTech is a modern full-stack web application built for a Cameroon-b
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 
 ### Backend Services
-- **Storage Interface**: Abstract storage layer with in-memory implementation
+- **Storage Interface**: Abstract storage layer with PostgreSQL database implementation
 - **Route Registration**: Modular route system for API endpoints
 - **Error Handling**: Centralized error handling middleware
 - **Development Tools**: Vite integration for hot reloading
@@ -109,6 +109,12 @@ Changelog:
   - Optimized for static deployment (no backend dependencies)
   - Added comprehensive SEO optimization
   - Configured performance optimizations and security headers
+- July 05, 2025. Added PostgreSQL database with Neon
+  - Created PostgreSQL database using Neon serverless
+  - Replaced MemStorage with DatabaseStorage implementation
+  - Migrated user storage to use Drizzle ORM with PostgreSQL
+  - Configured database connection with proper environment variables
+  - Created users table with proper schema migrations
 ```
 
 ## User Preferences
