@@ -69,12 +69,20 @@ export default function AISection() {
                 Formation sur vos données métier
               </li>
             </ul>
-            <button 
-              onClick={() => handleLearnMoreClick('chatbot')}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              En Savoir Plus
-            </button>
+            <div className="space-y-3">
+              <button 
+                onClick={() => handleLearnMoreClick('chatbot')}
+                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              >
+                En Savoir Plus
+              </button>
+              <a 
+                href="#contact?service=Chatbots Intelligents"
+                className="block w-full bg-blue-100 text-blue-700 py-3 rounded-lg font-semibold hover:bg-blue-200 transition-colors text-center"
+              >
+                Demander un Devis
+              </a>
+            </div>
           </div>
 
           {/* Intégration Multi-Canaux */}
@@ -101,12 +109,20 @@ export default function AISection() {
                 Widget site web personnalisé
               </li>
             </ul>
-            <button 
-              onClick={() => handleLearnMoreClick('integration')}
-              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-            >
-              En Savoir Plus
-            </button>
+            <div className="space-y-3">
+              <button 
+                onClick={() => handleLearnMoreClick('integration')}
+                className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+              >
+                En Savoir Plus
+              </button>
+              <a 
+                href="#contact?service=Intégration Multi-Canaux"
+                className="block w-full bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center"
+              >
+                Demander un Devis
+              </a>
+            </div>
           </div>
 
           {/* Automatisation Métier */}
@@ -133,12 +149,20 @@ export default function AISection() {
                 Workflows personnalisés
               </li>
             </ul>
-            <button 
-              onClick={() => handleLearnMoreClick('automation')}
-              className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-            >
-              En Savoir Plus
-            </button>
+            <div className="space-y-3">
+              <button 
+                onClick={() => handleLearnMoreClick('automation')}
+                className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+              >
+                En Savoir Plus
+              </button>
+              <a 
+                href="#contact?service=Automatisation Métier"
+                className="block w-full bg-purple-100 text-purple-700 py-3 rounded-lg font-semibold hover:bg-purple-200 transition-colors text-center"
+              >
+                Demander un Devis
+              </a>
+            </div>
           </div>
         </div>
 

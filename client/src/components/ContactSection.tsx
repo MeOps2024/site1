@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { useMetaPixel, useSectionTracking } from "@/hooks/use-meta-pixel";
 
@@ -16,6 +16,18 @@ export default function ContactSection() {
     message: '',
     consent: false
   });
+
+  // Pre-select service based on URL parameters
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedService = urlParams.get('service');
+    if (selectedService) {
+      setFormData(prev => ({
+        ...prev,
+        service: selectedService
+      }));
+    }
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -306,14 +318,22 @@ export default function ContactSection() {
                   className="form-select"
                 >
                   <option value="">Sélectionner un service</option>
-                  <option value="Pack Vitrine Code+">Pack Vitrine Code+ (150K - 250K FCFA)</option>
-                  <option value="Pack Visibilité Pro Code+">Pack Visibilité Pro Code+ (250K - 350K FCFA)</option>
-                  <option value="Pack Conquête Digitale Code+">Pack Conquête Digitale Code+ (400K - 600K FCFA)</option>
-                  <option value="Pack Innovateur Express">Pack Innovateur Express (250K+ FCFA)</option>
-                  <option value="Pack Solutions Pro">Pack Solutions Pro (Sur devis)</option>
-                  <option value="Pack Accélérateur IA">Pack Accélérateur IA (1M+ FCFA)</option>
-                  <option value="Pack IA Stratégique">Pack IA Stratégique (850K+ FCFA)</option>
-                  <option value="Autre">Autre projet personnalisé</option>
+                  <optgroup label="🤖 Solutions Intelligence Artificielle">
+                    <option value="Chatbots Intelligents">Chatbots Intelligents (500K - 750K FCFA)</option>
+                    <option value="Intégration Multi-Canaux">Intégration Multi-Canaux (600K - 900K FCFA)</option>
+                    <option value="Automatisation Métier">Automatisation Métier (750K - 1M+ FCFA)</option>
+                    <option value="Solution IA Complète">Solution IA Complète (1M+ FCFA)</option>
+                  </optgroup>
+                  <optgroup label="🌐 Développement Web Traditionnel">
+                    <option value="Présence Digitale Automatisée">Présence Digitale Automatisée (150K - 250K FCFA)</option>
+                    <option value="Boutique Intelligente">Boutique Intelligente (250K - 350K FCFA)</option>
+                    <option value="Outils Métier Automatisés">Outils Métier Automatisés (400K - 600K FCFA)</option>
+                  </optgroup>
+                  <optgroup label="📱 Projets Personnalisés">
+                    <option value="Application Mobile">Application Mobile (Sur devis)</option>
+                    <option value="Système de Gestion">Système de Gestion (Sur devis)</option>
+                    <option value="Autre">Autre projet personnalisé</option>
+                  </optgroup>
                 </select>
               </div>
               

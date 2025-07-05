@@ -63,12 +63,12 @@ export default function ServicesSection() {
             </ul>
             
             <div className="text-2xl font-bold text-blue-600 mb-4">150 000 - 250 000 FCFA</div>
-            <button 
-              onClick={() => handleServiceClick('Pack Vitrine Code+', 200000)}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            <a 
+              href="#contact?service=Présence Digitale Automatisée"
+              className="block w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center"
             >
               Choisir ce pack
-            </button>
+            </a>
           </div>
           
           {/* Pack Visibilité Pro Code+ */}
@@ -101,12 +101,12 @@ export default function ServicesSection() {
             </ul>
             
             <div className="text-2xl font-bold text-blue-600 mb-4">250 000 - 350 000 FCFA</div>
-            <button 
-              onClick={() => handleServiceClick('Pack Visibilité Pro Code+', 300000)}
-              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            <a 
+              href="#contact?service=Boutique Intelligente"
+              className="block w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center"
             >
               Choisir ce pack
-            </button>
+            </a>
           </div>
           
           {/* Pack Conquête Digitale Code+ */}
@@ -143,12 +143,12 @@ export default function ServicesSection() {
             </ul>
             
             <div className="text-2xl font-bold text-blue-600 mb-4">400 000 - 600 000 FCFA</div>
-            <button 
-              onClick={() => handleServiceClick('Pack Conquête Digitale Code+', 500000)}
-              className="w-full bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors"
+            <a 
+              href="#contact?service=Outils Métier Automatisés"
+              className="block w-full bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors text-center"
             >
               Choisir ce pack
-            </button>
+            </a>
           </div>
         </div>
       </div>
