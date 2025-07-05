@@ -1,6 +1,25 @@
 import { trackEvent } from "@/lib/analytics";
 
 export default function AISection() {
+  const handleLearnMoreClick = (service: string) => {
+    trackEvent('click', 'learn_more', `ai_service_${service}`);
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent', { service_type: service });
+    }
+    // Scroll to FAQ section and open the corresponding FAQ
+    const faqElement = document.getElementById('ai-faq');
+    if (faqElement) {
+      faqElement.scrollIntoView({ behavior: 'smooth' });
+      // Trigger the FAQ to open after scrolling
+      setTimeout(() => {
+        const faqButton = document.querySelector(`[data-faq="${service}"]`) as HTMLButtonElement;
+        if (faqButton) {
+          faqButton.click();
+        }
+      }, 800);
+    }
+  };
+
   const handleContactClick = (service: string) => {
     trackEvent('click', 'contact', `ai_service_${service}`);
     if (window.fbq) {
@@ -51,7 +70,7 @@ export default function AISection() {
               </li>
             </ul>
             <button 
-              onClick={() => handleContactClick('chatbot')}
+              onClick={() => handleLearnMoreClick('chatbot')}
               className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
               En Savoir Plus
@@ -83,7 +102,7 @@ export default function AISection() {
               </li>
             </ul>
             <button 
-              onClick={() => handleContactClick('integration')}
+              onClick={() => handleLearnMoreClick('integration')}
               className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
             >
               En Savoir Plus
@@ -115,7 +134,7 @@ export default function AISection() {
               </li>
             </ul>
             <button 
-              onClick={() => handleContactClick('automation')}
+              onClick={() => handleLearnMoreClick('automation')}
               className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
             >
               En Savoir Plus

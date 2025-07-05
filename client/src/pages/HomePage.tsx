@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import AISection from "@/components/AISection";
+import AIFAQSection from "@/components/AIFAQSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Navigation />
       <HeroSection />
       <AISection />
+      <AIFAQSection />
       <ServicesSection />
       <WhyChooseUsSection />
       <PricingSection />
