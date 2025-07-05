@@ -1,14 +1,10 @@
 import { trackEvent } from "@/lib/analytics";
 
 export default function AISection() {
-  const handleAIConsultationClick = () => {
-    trackEvent('click', 'ai_consultation', 'Pack IA Stratégique');
+  const handleContactClick = (service: string) => {
+    trackEvent('click', 'contact', `ai_service_${service}`);
     if (window.fbq) {
-      window.fbq('track', 'AddToCart', {
-        content_name: 'Pack IA Stratégique',
-        value: 850000,
-        currency: 'XAF'
-      });
+      window.fbq('track', 'Lead', { service_type: service });
     }
     const element = document.getElementById('contact');
     if (element) {
@@ -17,92 +13,146 @@ export default function AISection() {
   };
 
   return (
-    <section className="section-padding bg-gradient-to-br from-neutral-900 to-blue-900 text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-2xl"></div>
-        <div className="absolute top-40 right-20 w-48 h-48 bg-yellow-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-green-600 rounded-full blur-2xl"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="ia-solutions" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Solutions d'Automatisation IA Intelligente
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Solutions <span className="text-blue-600">Intelligence Artificielle</span>
           </h2>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            Exploitez la puissance de l'Intelligence Artificielle pour automatiser votre prospection, 
-            votre acquisition client et votre analyse marketing.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Automatisez vos processus métier avec des solutions IA sur mesure. 
+            Indépendant ou intégré à vos projets existants pour multiplier votre productivité.
           </p>
         </div>
-        
-        <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6 text-yellow-400">
-                Pack IA Stratégique – Automatisation 70% & Acquisition optimisée
-              </h3>
-              
-              <div className="space-y-6 mb-8">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <i className="fas fa-ad text-white"></i>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2">Campagnes publicitaires 100% assistées par IA</h4>
-                    <p className="text-blue-100">Génération automatique de visuels, titres, descriptions avec tests A/B optimisés en temps réel.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <i className="fas fa-robot text-white"></i>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2">Modules IA intégrés</h4>
-                    <p className="text-blue-100">Chatbots intelligents, formulaires dynamiques avec scoring automatique et préqualification client.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <i className="fas fa-chart-line text-white"></i>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2">Tracking & Analyse Automatisée</h4>
-                    <p className="text-blue-100">Intégration complète Meta Pixel + Conversion API avec recommandations stratégiques IA.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="text-3xl font-bold text-yellow-400">À partir de 850 000 FCFA</div>
-                <button 
-                  onClick={handleAIConsultationClick}
-                  className="bg-yellow-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition-colors text-center"
-                >
-                  Demander une consultation
-                </button>
-              </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {/* Chatbots Intelligents */}
+          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-blue-100">
+            <div className="bg-blue-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+              <i className="fas fa-robot text-2xl text-blue-600"></i>
             </div>
-            
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Chatbots Intelligents</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Agents conversationnels avec personnalité sur mesure. Répondent automatiquement 
+              à vos clients et qualifient les prospects 24h/7j.
+            </p>
+            <ul className="space-y-2 text-sm text-gray-600 mb-6">
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Mémoire conversationnelle avancée
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Personnalité adaptée à votre marque
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Formation sur vos données métier
+              </li>
+            </ul>
+            <button 
+              onClick={() => handleContactClick('chatbot')}
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              En Savoir Plus
+            </button>
+          </div>
+
+          {/* Intégration Multi-Canaux */}
+          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-green-100">
+            <div className="bg-green-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+              <i className="fas fa-comments text-2xl text-green-600"></i>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Intégration Multi-Canaux</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Déployez vos agents IA sur WhatsApp, Telegram, votre site web 
+              et tous vos canaux de communication existants.
+            </p>
+            <ul className="space-y-2 text-sm text-gray-600 mb-6">
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                WhatsApp Business API
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Telegram et autres plateformes
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Widget site web personnalisé
+              </li>
+            </ul>
+            <button 
+              onClick={() => handleContactClick('integration')}
+              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            >
+              En Savoir Plus
+            </button>
+          </div>
+
+          {/* Automatisation Métier */}
+          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-purple-100">
+            <div className="bg-purple-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+              <i className="fas fa-cogs text-2xl text-purple-600"></i>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Automatisation Métier</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Qualification automatique de leads, génération de devis en temps réel 
+              et processus métier intelligents.
+            </p>
+            <ul className="space-y-2 text-sm text-gray-600 mb-6">
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Qualification automatique de prospects
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Génération de devis intelligente
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-check text-green-500 mr-2"></i>
+                Workflows personnalisés
+              </li>
+            </ul>
+            <button 
+              onClick={() => handleContactClick('automation')}
+              className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+            >
+              En Savoir Plus
+            </button>
+          </div>
+        </div>
+
+        {/* Pricing IA */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-white text-center">
+          <h3 className="text-3xl md:text-4xl font-bold mb-4">
+            Solutions IA Sur Mesure
+          </h3>
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            Indépendant ou intégré à vos projets d'application ou de site, 
+            pour gagner en temps et en productivité
+          </p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="text-center">
-              <img 
-                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
-                alt="Intelligence artificielle et automatisation marketing" 
-                className="rounded-2xl shadow-2xl w-full h-auto"
-                loading="lazy" 
-              />
-              
-              <div className="mt-8 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-                <h4 className="text-xl font-bold mb-4 text-yellow-400">Résultat garanti</h4>
-                <p className="text-blue-100">
-                  <strong>Moins d'effort, plus d'efficacité.</strong><br/>
-                  Rentabilité mesurable dès la 1ère campagne.
-                </p>
+              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">
+                500 000 FCFA
               </div>
+              <div className="text-blue-100">Solution de base</div>
+            </div>
+            <div className="text-2xl text-yellow-400 font-bold">~</div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">
+                1 000 000+ FCFA
+              </div>
+              <div className="text-blue-100">Solution entreprise</div>
             </div>
           </div>
+          <button 
+            onClick={() => handleContactClick('pricing')}
+            className="mt-8 bg-yellow-500 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all duration-300"
+          >
+            Demander un Devis Gratuit
+          </button>
         </div>
       </div>
     </section>

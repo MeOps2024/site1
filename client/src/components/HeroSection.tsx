@@ -31,12 +31,12 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-white animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Votre <span className="text-yellow-400">Présence Digitale</span><br/>
-              Professionnelle au Cameroun
+              Boostez votre <span className="text-yellow-400">Productivité</span><br/>
+              avec l'Intelligence Artificielle
             </h1>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-              Développement de sites web, applications sur mesure et solutions d'automatisation IA. 
-              Code 100% exportable et administrable pour votre indépendance technologique.
+              Solutions web intelligentes sur mesure, pour gain de productivité et d'argent.
+              Chatbots IA, automatisation et applications qui travaillent 24h/7j pour vous.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -59,16 +59,16 @@ export default function HeroSection() {
             
             <div className="flex items-center space-x-8 text-blue-100">
               <div className="flex items-center space-x-2">
-                <i className="fas fa-check-circle text-yellow-400"></i>
-                <span>Code Exportable</span>
+                <i className="fas fa-robot text-yellow-400"></i>
+                <span>IA Avancée</span>
               </div>
               <div className="flex items-center space-x-2">
-                <i className="fas fa-shield-alt text-yellow-400"></i>
-                <span>100% Sécurisé</span>
+                <i className="fas fa-chart-line text-yellow-400"></i>
+                <span>ROI Garanti</span>
               </div>
               <div className="flex items-center space-x-2">
-                <i className="fas fa-mobile-alt text-yellow-400"></i>
-                <span>Responsive</span>
+                <i className="fas fa-clock text-yellow-400"></i>
+                <span>24h/7j</span>
               </div>
             </div>
           </div>

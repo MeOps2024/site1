@@ -20,11 +20,11 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-neutral-800 mb-4">
-            Nos Solutions Web Professionnelles
+            Solutions Web <span className="text-blue-600">Optimisées pour la Productivité</span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-            De la vitrine simple aux applications complexes avec IA, nous créons vos outils digitaux 
-            avec un code 100% exportable et une propriété totale.
+            Présence digitale automatisée qui convertit 24h/7j, boutiques intelligentes avec assistance IA, 
+            et outils métier qui automatisent vos processus pour maximiser votre efficacité.
           </p>
         </div>
         
@@ -35,8 +35,8 @@ export default function ServicesSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-4">
                 <i className="fas fa-laptop-code text-white text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 mb-2">Pack Vitrine Code+</h3>
-              <p className="text-neutral-600">Présence professionnelle rapide et efficace</p>
+              <h3 className="text-xl font-bold text-neutral-800 mb-2">Présence Digitale Automatisée</h3>
+              <p className="text-neutral-600">Vitrine qui convertit vos visiteurs 24h/7j</p>
             </div>
             
             <ul className="space-y-3 mb-6">
@@ -77,8 +77,8 @@ export default function ServicesSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center mb-4">
                 <i className="fas fa-globe text-white text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 mb-2">Pack Visibilité Pro Code+</h3>
-              <p className="text-neutral-600">Améliorer votre image de marque</p>
+              <h3 className="text-xl font-bold text-neutral-800 mb-2">Boutique Intelligente</h3>
+              <p className="text-neutral-600">E-commerce avec assistance IA intégrée</p>
             </div>
             
             <ul className="space-y-3 mb-6">
@@ -119,8 +119,8 @@ export default function ServicesSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
                 <i className="fas fa-rocket text-white text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 mb-2">Pack Conquête Digitale Code+</h3>
-              <p className="text-neutral-600">Présence + Acquisition client dès le lancement</p>
+              <h3 className="text-xl font-bold text-neutral-800 mb-2">Outils Métier Automatisés</h3>
+              <p className="text-neutral-600">Applications qui automatisent vos processus</p>
             </div>
             
             <ul className="space-y-3 mb-6">

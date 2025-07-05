@@ -1,7 +1,6 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
-import ApplicationsSection from "@/components/ApplicationsSection";
 import AISection from "@/components/AISection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import PricingSection from "@/components/PricingSection";
@@ -21,9 +20,8 @@ export default function HomePage() {
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
-      <ServicesSection />
-      <ApplicationsSection />
       <AISection />
+      <ServicesSection />
       <WhyChooseUsSection />
       <PricingSection />
       <ContactSection />

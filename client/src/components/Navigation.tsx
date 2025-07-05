@@ -44,10 +44,16 @@ export default function Navigation() {
               Accueil
             </button>
             <button 
+              onClick={() => scrollToSection('ia-solutions')} 
+              className="text-neutral-600 hover:text-blue-600 transition-colors duration-200"
+            >
+              Solutions IA
+            </button>
+            <button 
               onClick={() => scrollToSection('services')} 
               className="text-neutral-600 hover:text-blue-600 transition-colors duration-200"
             >
-              Services
+              Services Web
             </button>
             <button 
               onClick={() => scrollToSection('methode')} 
@@ -90,10 +96,16 @@ export default function Navigation() {
               Accueil
             </button>
             <button 
+              onClick={() => scrollToSection('ia-solutions')} 
+              className="block w-full text-left text-neutral-600 hover:text-blue-600 transition-colors"
+            >
+              Solutions IA
+            </button>
+            <button 
               onClick={() => scrollToSection('services')} 
               className="block w-full text-left text-neutral-600 hover:text-blue-600 transition-colors"
             >
-              Services
+              Services Web
             </button>
             <button 
               onClick={() => scrollToSection('methode')} 
