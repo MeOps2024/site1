@@ -38,7 +38,17 @@ export default function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Validation côté client
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.consent) {
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      console.error('Champs requis manquants');
+      return;
+    }
+
     try {
+      console.log('Form data being submitted:', formData);
+      
       // Track form submission attempt
       trackEvent('form_submit', 'contact', 'contact_form');
       trackLead({
@@ -48,16 +58,16 @@ export default function ContactSection() {
       });
 
       // Submit to Netlify Forms
-      const formDataToSubmit = new FormData();
-      formDataToSubmit.append('form-name', 'contact');
+      const formBody = new URLSearchParams();
+      formBody.append('form-name', 'contact');
       Object.entries(formData).forEach(([key, value]) => {
-        formDataToSubmit.append(key, value.toString());
+        formBody.append(key, value.toString());
       });
 
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSubmit as any).toString()
+        body: formBody.toString()
       });
 
       if (response.ok) {
@@ -80,7 +90,9 @@ export default function ContactSection() {
           email: formData.email
         });
       } else {
-        throw new Error('Form submission failed');
+        console.error('Response status:', response.status);
+        console.error('Response text:', await response.text());
+        throw new Error(`Form submission failed: ${response.status}`);
       }
     } catch (error) {
       console.error('Form submission error:', error);
