@@ -5,51 +5,79 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Redirections pour SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  condition = "Host"
 
-[dev]
-  command = "npm run dev"
-  port = 5000
-  targetPort = 5000
-
-# Form handling
-[forms]
-  settings = { spam_filter = true }
-
-# Headers for security and performance
+# Headers de sécurité et performance
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src https:;"
 
+# Cache des assets statiques
 [[headers]]
-  for = "*.js"
+  for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.css"
+  for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.png"
+  for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Configuration pour les images
 [[headers]]
-  for = "*.jpg"
+  for = "/*.png"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=31536000"
 
 [[headers]]
-  for = "*.webp"
+  for = "/*.jpg"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Rate limiting pour éviter les attaques
+[[edge_functions]]
+  function = "rate-limit"
+  path = "/api/*"
+
+# Configuration des formulaires
+[forms]
+  settings = { }
+
+# Variables d'environnement pour la production
+[context.production.environment]
+  VITE_GA_MEASUREMENT_ID = ""
+  VITE_META_PIXEL_ID = ""
+
+# Configuration pour les campagnes publicitaires
+[context.production]
+  command = "npm run build"
+
+# Optimisation des fonctions (pas utilisées mais prêt pour scale)
+[functions]
+  directory = "netlify/functions"
+  included_files = ["package.json"]
+
+# Configuration avancée pour high traffic
+[[edge_functions]]
+  function = "geolocation"
+  path = "/*"
