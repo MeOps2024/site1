@@ -1,15 +1,14 @@
 import { trackEvent } from "@/lib/analytics";
+import { useMetaPixel, useSectionTracking } from "@/hooks/use-meta-pixel";
 
 export default function ServicesSection() {
+  const { trackServiceInterest } = useMetaPixel();
+  useSectionTracking('Services');
+
   const handleServiceClick = (serviceName: string, price: number) => {
     trackEvent('click', 'service', serviceName);
-    if (window.fbq) {
-      window.fbq('track', 'AddToCart', {
-        content_name: serviceName,
-        value: price,
-        currency: 'XAF'
-      });
-    }
+    trackServiceInterest(serviceName, `${price} FCFA`);
+    
     const element = document.getElementById('contact');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });

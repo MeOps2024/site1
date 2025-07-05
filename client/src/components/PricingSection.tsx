@@ -1,11 +1,14 @@
 import { trackEvent } from "@/lib/analytics";
+import { useMetaPixel, useSectionTracking } from "@/hooks/use-meta-pixel";
 
 export default function PricingSection() {
-  const handlePricingClick = (category: string) => {
+  const { trackPricingView } = useMetaPixel();
+  useSectionTracking('Pricing');
+
+  const handlePricingClick = (category: string, price: string) => {
     trackEvent('click', 'pricing', category);
-    if (window.fbq) {
-      window.fbq('track', 'Lead', { content_category: category });
-    }
+    trackPricingView(category, price);
+    
     const element = document.getElementById('contact');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -51,7 +54,7 @@ export default function PricingSection() {
             </div>
             
             <button 
-              onClick={() => handlePricingClick('Sites Web')}
+              onClick={() => handlePricingClick('Sites Web', '150K-600K FCFA')}
               className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
               Demander un devis
@@ -84,7 +87,7 @@ export default function PricingSection() {
             </div>
             
             <button 
-              onClick={() => handlePricingClick('Applications Web')}
+              onClick={() => handlePricingClick('Applications Web', '250K-1M+ FCFA')}
               className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
             >
               Demander un devis
@@ -117,7 +120,7 @@ export default function PricingSection() {
             </div>
             
             <button 
-              onClick={() => handlePricingClick('Solutions IA')}
+              onClick={() => handlePricingClick('Solutions IA', '850K+ FCFA')}
               className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
             >
               Consultation gratuite

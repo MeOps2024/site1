@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { trackEvent } from "@/lib/analytics";
+import { useMetaPixel, useSectionTracking } from "@/hooks/use-meta-pixel";
 
 export default function ContactSection() {
+  const { trackFormStart, trackContactAttempt, trackConversion, trackLead } = useMetaPixel();
+  useSectionTracking('Contact');
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,6 +22,12 @@ export default function ContactSection() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
+    
+    // Track form start on first input
+    if (name === 'firstName' && value.length === 1) {
+      trackFormStart('contact_form');
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
@@ -31,13 +41,11 @@ export default function ContactSection() {
     try {
       // Track form submission attempt
       trackEvent('form_submit', 'contact', 'contact_form');
-      if (window.fbq) {
-        window.fbq('track', 'Lead', {
-          content_name: 'Contact Form',
-          value: 0,
-          currency: 'XAF'
-        });
-      }
+      trackLead({
+        service: formData.service,
+        budget: formData.budget,
+        method: 'contact_form'
+      });
 
       // Submit to Netlify Forms
       const formDataToSubmit = new FormData();
@@ -65,13 +73,12 @@ export default function ContactSection() {
           consent: false
         });
         
-        // Track successful submission
-        if (window.fbq) {
-          window.fbq('track', 'CompleteRegistration', {
-            content_name: 'Contact Form Submission',
-            status: true
-          });
-        }
+        // Track successful submission with enhanced data
+        trackConversion('Contact Form Submission', {
+          service: formData.service,
+          budget: formData.budget,
+          email: formData.email
+        });
       } else {
         throw new Error('Form submission failed');
       }
@@ -85,9 +92,7 @@ export default function ContactSection() {
 
   const handleContactClick = (method: string) => {
     trackEvent('click', 'contact', method);
-    if (window.fbq) {
-      window.fbq('track', 'Contact', { contact_method: method });
-    }
+    trackContactAttempt(method, 'contact_section');
   };
 
   return (

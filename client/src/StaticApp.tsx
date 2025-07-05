@@ -7,14 +7,15 @@ import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { useMetaPixel } from "@/hooks/use-meta-pixel";
 import { useEffect } from "react";
 
 function StaticApp() {
+  const { trackPageView, trackContactAttempt } = useMetaPixel();
+
   useEffect(() => {
-    // Track page view with Meta Pixel
-    if (window.fbq) {
-      window.fbq('track', 'PageView');
-    }
+    // Track page view with enhanced Meta Pixel
+    trackPageView('SmartScale WebTech - Accueil');
     
     // Track page view with Google Analytics
     if (window.gtag && import.meta.env.VITE_GA_MEASUREMENT_ID) {
@@ -22,7 +23,7 @@ function StaticApp() {
         page_path: window.location.pathname
       });
     }
-  }, []);
+  }, [trackPageView]);
 
   return (
     <div className="min-h-screen">
@@ -44,7 +45,7 @@ function StaticApp() {
           rel="noopener noreferrer"
           className="bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110"
           onClick={() => {
-            if (window.fbq) window.fbq('track', 'Contact', {contact_method: 'whatsapp'});
+            trackContactAttempt('whatsapp', 'floating_button');
             if (window.gtag) window.gtag('event', 'click', { event_category: 'contact', event_label: 'whatsapp' });
           }}
         >
