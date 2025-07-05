@@ -178,16 +178,16 @@ export default function AISection() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">
-                500 000 FCFA
+                400 000 FCFA
               </div>
-              <div className="text-blue-100">Solution de base</div>
+              <div className="text-blue-100">Chatbot simple</div>
             </div>
             <div className="text-2xl text-yellow-400 font-bold">~</div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">
-                1 000 000+ FCFA
+                3 500 000 FCFA
               </div>
-              <div className="text-blue-100">Solution entreprise</div>
+              <div className="text-blue-100">Suite complète</div>
             </div>
           </div>
           <button 

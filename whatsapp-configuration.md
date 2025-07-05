@@ -30,7 +30,9 @@ Tapez le numéro qui vous intéresse ou décrivez votre projet ! 👇
 ✅ Mémoire des conversations clients
 ✅ Qualification automatique des prospects
 
-💰 *À partir de 500 000 FCFA*
+💰 *Tarifs selon sophistication :*
+• Chatbot simple : 400 000 - 600 000 FCFA
+• IA conversationnelle : 1 200 000 - 1 800 000 FCFA
 
 🎯 *Résultats garantis :*
 • 80% de réduction du temps de réponse
@@ -51,7 +53,7 @@ Déployez votre IA sur tous vos canaux :
 ✅ Widget site web personnalisé
 ✅ Facebook Messenger & Instagram
 
-💰 *Inclus dans nos solutions IA*
+💰 *600 000 - 850 000 FCFA*
 
 🎯 *Bénéfices immédiats :*
 • 300% d'augmentation des conversions hors heures
@@ -72,7 +74,9 @@ Transformez votre business avec l'IA :
 ✅ Workflows personnalisés
 ✅ Suivi automatique des projets
 
-💰 *500 000 - 1 000 000+ FCFA selon besoins*
+💰 *Tarifs selon complexité :*
+• Automatisation basique : 750 000 - 1 200 000 FCFA
+• Suite complète : 2 000 000 - 3 500 000 FCFA
 
 🎯 *ROI concret :*
 • Économie de 15-20h/semaine

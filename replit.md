@@ -118,12 +118,21 @@ Changelog:
 - July 05, 2025. Major redesign: AI-focused business positioning
   - Transformed hero section to emphasize AI and productivity
   - Created new AISection component showcasing chatbots, automation, and integration services
-  - Added pricing for AI solutions (500,000 - 1,000,000+ FCFA)
+  - Added pricing for AI solutions (400,000 - 3,500,000 FCFA)
   - Repositioned existing services with productivity-focused messaging
   - Redesigned WhyChooseUsSection to highlight ROI, time savings, and competitive advantages
   - Updated navigation to prioritize AI solutions
   - Enhanced favicon and PWA manifest for professional branding
   - Restructured page layout to lead with AI offerings
+- July 05, 2025. Updated AI pricing structure with realistic market rates
+  - Chatbot simple: 400,000 - 600,000 FCFA
+  - Intégration multi-canaux: 600,000 - 850,000 FCFA
+  - Automatisation métier basique: 750,000 - 1,200,000 FCFA
+  - Chatbot IA conversationnel: 1,200,000 - 1,800,000 FCFA
+  - Suite automatisation complète: 2,000,000 - 3,500,000 FCFA
+  - Added service pre-selection functionality to contact form
+  - Updated FAQ section with detailed pricing information
+  - Enhanced WhatsApp configuration with new pricing tiers
 ```
 
 ## User Preferences

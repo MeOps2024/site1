@@ -56,13 +56,14 @@ export default function AIFAQSection() {
             </div>
           </div>
 
-          <div>
-            <p className="font-semibold text-gray-800 mb-2">Résultats garantis :</p>
-            <ul className="text-gray-600 space-y-1 ml-4">
+          <div className="bg-green-50 p-4 rounded-lg">
+            <p className="font-semibold text-green-800 mb-2">Prix et résultats garantis :</p>
+            <ul className="text-green-700 space-y-1 ml-4">
+              <li>• <strong>400 000 - 600 000 FCFA</strong> : Chatbot simple avec réponses pré-programmées</li>
+              <li>• <strong>1 200 000 - 1 800 000 FCFA</strong> : Chatbot IA conversationnel avancé</li>
               <li>• 80% de réduction du temps de réponse client</li>
               <li>• Qualification automatique des prospects</li>
               <li>• Disponibilité 24h/7j sans coût supplémentaire</li>
-              <li>• Amélioration de l'expérience client</li>
             </ul>
           </div>
         </div>
@@ -108,9 +109,10 @@ export default function AIFAQSection() {
             </ul>
           </div>
 
-          <div>
-            <p className="font-semibold text-gray-800 mb-2">Bénéfices mesurables :</p>
-            <ul className="text-gray-600 space-y-1 ml-4">
+          <div className="bg-green-50 p-4 rounded-lg">
+            <p className="font-semibold text-green-800 mb-2">Prix et bénéfices mesurables :</p>
+            <ul className="text-green-700 space-y-1 ml-4">
+              <li>• <strong>600 000 - 850 000 FCFA</strong> : Intégration multi-canaux complète</li>
               <li>• 300% d'augmentation des conversions hors heures</li>
               <li>• Temps de réponse : moins de 5 secondes</li>
               <li>• Réduction de 70% des appels téléphoniques</li>
@@ -161,9 +163,11 @@ export default function AIFAQSection() {
             </ul>
           </div>
 
-          <div>
-            <p className="font-semibold text-gray-800 mb-2">ROI concret :</p>
-            <ul className="text-gray-600 space-y-1 ml-4">
+          <div className="bg-green-50 p-4 rounded-lg">
+            <p className="font-semibold text-green-800 mb-2">Prix et ROI concret :</p>
+            <ul className="text-green-700 space-y-1 ml-4">
+              <li>• <strong>750 000 - 1 200 000 FCFA</strong> : Automatisation métier basique</li>
+              <li>• <strong>2 000 000 - 3 500 000 FCFA</strong> : Suite automatisation complète</li>
               <li>• Économie de 15-20h/semaine de travail administratif</li>
               <li>• 80% de prospects mieux qualifiés</li>
               <li>• Délai de devis réduit de 2 jours à 2 minutes</li>

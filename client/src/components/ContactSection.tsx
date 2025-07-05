@@ -319,10 +319,11 @@ export default function ContactSection() {
                 >
                   <option value="">Sélectionner un service</option>
                   <optgroup label="🤖 Solutions Intelligence Artificielle">
-                    <option value="Chatbots Intelligents">Chatbots Intelligents (500K - 750K FCFA)</option>
-                    <option value="Intégration Multi-Canaux">Intégration Multi-Canaux (600K - 900K FCFA)</option>
-                    <option value="Automatisation Métier">Automatisation Métier (750K - 1M+ FCFA)</option>
-                    <option value="Solution IA Complète">Solution IA Complète (1M+ FCFA)</option>
+                    <option value="Chatbot Intelligent Simple">Chatbot Intelligent Simple (400K - 600K FCFA)</option>
+                    <option value="Intégration Multi-Canaux">Intégration Multi-Canaux (600K - 850K FCFA)</option>
+                    <option value="Automatisation Métier Basique">Automatisation Métier Basique (750K - 1.2M FCFA)</option>
+                    <option value="Chatbot IA Conversationnel">Chatbot IA Conversationnel (1.2M - 1.8M FCFA)</option>
+                    <option value="Suite Automatisation Complète">Suite Automatisation Complète (2M - 3.5M FCFA)</option>
                   </optgroup>
                   <optgroup label="🌐 Développement Web Traditionnel">
                     <option value="Présence Digitale Automatisée">Présence Digitale Automatisée (150K - 250K FCFA)</option>
@@ -349,10 +350,11 @@ export default function ContactSection() {
                   className="form-select"
                 >
                   <option value="">Sélectionner une fourchette</option>
-                  <option value="150K - 250K FCFA">150K - 250K FCFA</option>
-                  <option value="250K - 500K FCFA">250K - 500K FCFA</option>
-                  <option value="500K - 1M FCFA">500K - 1M FCFA</option>
-                  <option value="1M+ FCFA">1M+ FCFA</option>
+                  <option value="150K - 400K FCFA">150K - 400K FCFA</option>
+                  <option value="400K - 850K FCFA">400K - 850K FCFA</option>
+                  <option value="850K - 1.5M FCFA">850K - 1.5M FCFA</option>
+                  <option value="1.5M - 3M FCFA">1.5M - 3M FCFA</option>
+                  <option value="3M+ FCFA">3M+ FCFA</option>
                   <option value="À définir">À définir ensemble</option>
                 </select>
               </div>
