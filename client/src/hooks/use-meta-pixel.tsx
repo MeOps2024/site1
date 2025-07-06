@@ -126,6 +126,21 @@ export const useMetaPixel = () => {
     });
   };
 
+  const trackButtonClick = (buttonName: string, section: string, service?: string) => {
+    trackEvent({
+      eventName: 'CompleteRegistration',
+      parameters: {
+        content_name: buttonName,
+        content_category: section,
+        service_type: service,
+        custom_data: {
+          button_clicked: buttonName,
+          page_section: section
+        }
+      }
+    });
+  };
+
   return {
     trackEvent,
     trackPageView,
@@ -134,7 +149,8 @@ export const useMetaPixel = () => {
     trackFormStart,
     trackContactAttempt,
     trackLead,
-    trackConversion
+    trackConversion,
+    trackButtonClick
   };
 };
 

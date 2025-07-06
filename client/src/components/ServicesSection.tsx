@@ -64,7 +64,19 @@ export default function ServicesSection() {
             
             <div className="text-2xl font-bold text-blue-600 mb-4">150 000 - 250 000 FCFA</div>
             <a 
-              href="#contact?service=Présence Digitale Automatisée"
+              href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Présence%20Digitale%20Automatisée%20(150-250K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+              target="_blank"
+              onClick={() => {
+                if (window.fbq) {
+                  window.fbq('track', 'Lead', {
+                    content_name: 'Pack Présence Digitale',
+                    contact_method: 'whatsapp',
+                    service_type: 'Site Web Vitrine',
+                    value: 200000,
+                    currency: 'XAF'
+                  });
+                }
+              }}
               className="block w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center"
             >
               Choisir ce pack
@@ -102,7 +114,19 @@ export default function ServicesSection() {
             
             <div className="text-2xl font-bold text-blue-600 mb-4">250 000 - 350 000 FCFA</div>
             <a 
-              href="#contact?service=Boutique Intelligente"
+              href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Boutique%20Intelligente%20(250-350K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+              target="_blank"
+              onClick={() => {
+                if (window.fbq) {
+                  window.fbq('track', 'Lead', {
+                    content_name: 'Pack Boutique Intelligente',
+                    contact_method: 'whatsapp',
+                    service_type: 'Site E-commerce',
+                    value: 300000,
+                    currency: 'XAF'
+                  });
+                }
+              }}
               className="block w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center"
             >
               Choisir ce pack
@@ -144,7 +168,19 @@ export default function ServicesSection() {
             
             <div className="text-2xl font-bold text-blue-600 mb-4">400 000 - 600 000 FCFA</div>
             <a 
-              href="#contact?service=Outils Métier Automatisés"
+              href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Conquête%20Digitale%20Code+%20(400-600K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+              target="_blank"
+              onClick={() => {
+                if (window.fbq) {
+                  window.fbq('track', 'Lead', {
+                    content_name: 'Pack Conquête Digitale',
+                    contact_method: 'whatsapp',
+                    service_type: 'Marketing Digital',
+                    value: 500000,
+                    currency: 'XAF'
+                  });
+                }
+              }}
               className="block w-full bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors text-center"
             >
               Choisir ce pack

@@ -78,7 +78,7 @@ export default function AISection() {
               </button>
               <div className="grid grid-cols-2 gap-2">
                 <a 
-                  href="#contact?service=Chatbots Intelligents"
+                  href="/devis"
                   className="bg-blue-100 text-blue-700 py-3 rounded-lg font-semibold hover:bg-blue-200 transition-colors text-center text-sm"
                 >
                   Devis
@@ -86,6 +86,17 @@ export default function AISection() {
                 <a 
                   href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20vos%20Chatbots%20Intelligents.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
                   target="_blank"
+                  onClick={() => {
+                    if (window.fbq) {
+                      window.fbq('track', 'Lead', {
+                        content_name: 'Chatbots Intelligents',
+                        contact_method: 'whatsapp',
+                        service_type: 'Chatbots IA',
+                        value: 500000,
+                        currency: 'XAF'
+                      });
+                    }
+                  }}
                   className="bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center text-sm flex items-center justify-center"
                 >
                   <i className="fab fa-whatsapp mr-1"></i> WhatsApp
@@ -127,7 +138,7 @@ export default function AISection() {
               </button>
               <div className="grid grid-cols-2 gap-2">
                 <a 
-                  href="#contact?service=Intégration Multi-Canaux"
+                  href="/devis"
                   className="bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center text-sm"
                 >
                   Devis
@@ -135,6 +146,17 @@ export default function AISection() {
                 <a 
                   href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Intégration%20Multi-Canaux.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
                   target="_blank"
+                  onClick={() => {
+                    if (window.fbq) {
+                      window.fbq('track', 'Lead', {
+                        content_name: 'Intégration Multi-Canaux',
+                        contact_method: 'whatsapp',
+                        service_type: 'Intégration IA',
+                        value: 725000,
+                        currency: 'XAF'
+                      });
+                    }
+                  }}
                   className="bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center text-sm flex items-center justify-center"
                 >
                   <i className="fab fa-whatsapp mr-1"></i> WhatsApp
@@ -176,7 +198,7 @@ export default function AISection() {
               </button>
               <div className="grid grid-cols-2 gap-2">
                 <a 
-                  href="#contact?service=Automatisation Métier"
+                  href="/devis"
                   className="bg-purple-100 text-purple-700 py-3 rounded-lg font-semibold hover:bg-purple-200 transition-colors text-center text-sm"
                 >
                   Devis
@@ -184,6 +206,17 @@ export default function AISection() {
                 <a 
                   href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Automatisation%20Métier.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
                   target="_blank"
+                  onClick={() => {
+                    if (window.fbq) {
+                      window.fbq('track', 'Lead', {
+                        content_name: 'Automatisation Métier',
+                        contact_method: 'whatsapp',
+                        service_type: 'Automatisation IA',
+                        value: 975000,
+                        currency: 'XAF'
+                      });
+                    }
+                  }}
                   className="bg-purple-100 text-purple-700 py-3 rounded-lg font-semibold hover:bg-purple-200 transition-colors text-center text-sm flex items-center justify-center"
                 >
                   <i className="fab fa-whatsapp mr-1"></i> WhatsApp
