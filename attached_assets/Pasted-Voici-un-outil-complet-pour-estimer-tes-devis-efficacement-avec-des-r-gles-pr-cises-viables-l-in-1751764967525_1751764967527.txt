@@ -1,0 +1,83 @@
+Voici un outil complet pour estimer tes devis efficacement, avec des règles précises, viables à l’international et adaptées au Cameroun 🇨🇲 :
+1️⃣ Référentiel international – tarifs moyens
+
+D’après plusieurs sources récentes, les tarifs horaires moyens pour développeurs :
+
+    Afrique : 20 – 40 $ / h (ex. Kenya, Nigeria)
+    upstackstudio.com+9yourteaminindia.com+9reddit.com+9
+
+    Cameroon (Upwork) : environ 25–40 $ / h
+    reddit.com
+
+    Freelancermap : ~24 $ / h
+    freelancermap.com+1talenteum.com+1
+
+2️⃣ Tarifs moyens locaux (Cameroun)
+
+    Junior : 10–15 $/h (6 000–9 000 XAF)
+
+    Mid-level : 25–40 $/h (15 000–24 000 XAF)
+
+    Senior : 40–60 $/h (24 000–36 000 XAF)
+
+En ligne avec Upwork/Talentemap
+reddit.com+11truelancer.com+11yourteaminindia.com+11
+talenteum.com
+.
+3️⃣ Règles concrètes de pricing
+Format
+
+    Forfait pack + coefficients d’ajustement (simple à expliquer au client)
+
+Formule
+
+prix_final = prix_de_base × (1 + Σ coefficients)
+Packs de base (milieu – adapté à ton offre Cameroun)
+Pack	Prix de base (FCFA)
+Présence digitale	200 000
+Boutique intelligente	300 000
+Outils métier automatisés	500 000
+Chatbot simple	500 000
+Intégration multi-canaux	725 000
+Automatisation basique	975 000
+Chatbot IA conversationnel	1 500 000
+Suite automatisation complète	2 750 000
+Coefficients
+Facteur	Ajustement
++ pages (7–10)	+15 %
++ formulaires / analytics	+10 %
++ SEO & SSL	+10 %
++ maintenance 6–12 mois	5–15 %
++ API externe	+10–20 %
++ formation pack 5 sessions	+15 %
++ complexité IA	up to +40 %
++ canaux supplémentaires	up to +20 %
++ urgence (<2 sem)	+20 %
+Taille du client (PME+)	+10 %, Startup -5 %
+4️⃣ Exemples
+
+Site vitrine 7 pages + SEO + maintenance 6 mois
+
+    Base : 200 000
+
+    Pages + form + SEO + maintenance = +35 %
+
+    Total = 270 000 FCFA
+
+Chatbot IA conversationnel multicanal + API + formation
+
+    Base : 1 500 000
+
+    Σ = +85 %
+
+    Total = 2 775 000 FCFA
+
+5️⃣ Adaptation internationale
+
+    Multiplier les prix moyens par ×4
+
+        Ex. site vitrine : 800 000 FCFA (~1 200 USD)
+
+        Chatbot IA : 6 000 000 FCFA (~9 000 USD)
+
+Appliquer les mêmes coefficients.

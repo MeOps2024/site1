@@ -67,6 +67,12 @@ export default function Navigation() {
             >
               Tarifs
             </button>
+            <a 
+              href="/devis"
+              className="text-neutral-600 hover:text-blue-600 transition-colors duration-200 font-medium"
+            >
+              Devis Gratuit
+            </a>
             <button 
               onClick={() => scrollToSection('contact')} 
               className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300"

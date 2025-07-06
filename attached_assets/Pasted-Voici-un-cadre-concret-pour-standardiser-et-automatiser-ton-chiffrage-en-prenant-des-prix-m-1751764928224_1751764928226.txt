@@ -1,0 +1,100 @@
+Voici un cadre concret pour **standardiser** et **automatiser** ton chiffrage, en prenant des prix moyens “ni trop bas, ni trop hauts” pour le contexte camerounais :
+
+---
+
+## 1. Structure de base des packs
+
+| Catégorie                  | Pack                          | Prix moyen (FCFA) |
+| -------------------------- | ----------------------------- | ----------------- |
+| **Web Traditionnel**       | Présence Digitale Automatisée | 200 000           |
+|                            | Boutique Intelligente         | 300 000           |
+|                            | Outils Métier Automatisés     | 500 000           |
+| **Services IA**            | Chatbot Intelligent Simple    | 500 000           |
+|                            | Intégration Multi‑Canaux      | 725 000           |
+|                            | Automatisation Métier Basique | 975 000           |
+|                            | Chatbot IA Conversationnel    | 1 500 000         |
+|                            | Suite Automatisation Complète | 2 750 000         |
+| **Services Personnalisés** | Application Mobile            | Sur devis         |
+|                            | Système de Gestion            | Sur devis         |
+
+> Ces “prix moyens” serviront de **point de départ** ; on y appliquera ensuite des **coefficients** selon les facteurs.
+
+---
+
+## 2. Facteurs d’ajustement (coefficients)
+
+Chaque projet part d’un prix de base (prix moyen ci‑dessus), que l’on adapte via :
+
+| Facteur                        | Catégorie | Coefficient   | Exemple                                             |
+| ------------------------------ | --------- | ------------- | --------------------------------------------------- |
+| **Nombre de pages**            | Web trad. | +0,00 à +0,30 | 3–5 pages = +0,00 ; 7–10 = +0,15 ; illimité = +0,30 |
+| **Fonctionnalités e‑commerce** | Web trad. | +0,00 à +0,20 | Formulaire = 0 ; panier = +0,10 ; analytics = +0,10 |
+| **SEO & SSL**                  | Web trad. | +0,10         | Inclus si demandé                                   |
+| **Hébergement & maintenance**  | Web trad. | +0,05 à +0,15 | 3 mois = +0,05 ; 12 mois = +0,15                    |
+| **Complexité IA**              | IA        | +0,00 à +0,40 | Règles simples = 0 ; conversationnel = +0,40        |
+| **Nombre de canaux (IA)**      | IA        | +0,00 à +0,20 | 1 canal = 0 ; 3 canaux = +0,20                      |
+| **Volume de données**          | IA        | +0,00 à +0,15 | < 100 entrées = 0 ; > 1000 = +0,15                  |
+| **Intégrations tierces**       | IA        | +0,00 à +0,20 | CRM simple = +0,10 ; ERP = +0,20                    |
+| **Support & formation**        | Tous      | +0,00 à +0,15 | 1 session = 0 ; pack 5 sess. = +0,15                |
+| **Urgence (délai < 2 sem.)**   | Tous      | +0,20         | Majoration                                          |
+| **Taille de l’entreprise**     | Tous      | –0,05 à +0,10 | Startup = –0,05 ; PME = 0 ; Grand compte = +0,10    |
+
+---
+
+## 3. Formule de calcul
+
+> **Prix final** = **Prix moyen** × (1 + Σ coefficients)
+
+1. Sélectionner le pack de base → prix moyen
+2. Cumuler les coefficients pour chaque facteur
+3. Appliquer la formule
+
+---
+
+## 4. Exemple de devis
+
+### Cas A : Site vitrine 7 pages + formulaire + SEO + 6 mois maintenance
+
+* Pack de base : 200 000 FCFA
+* Pages (7–10) : +0,15
+* Formulaire : 0
+* SEO & SSL : +0,10
+* Hébergement 6 mois : +0,10
+* Urgence : 0
+
+Σ coefficients = 0,15 + 0,10 + 0,10 = 0,35
+Prix = 200 000 × (1 + 0,35) = **270 000 FCFA**
+
+---
+
+### Cas B : Chatbot IA conversationnel multicanal + CRM + formation 5 sess.
+
+* Pack de base : 1 500 000 FCFA
+* Complexité conversationnelle : +0,40
+* Canaux (WhatsApp + Web + FB) : +0,20
+* Intégration CRM : +0,10
+* Formation pack : +0,15
+
+Σ coefficients = 0,40 + 0,20 + 0,10 + 0,15 = 0,85
+Prix = 1 500 000 × (1 + 0,85) = **2 775 000 FCFA**
+
+---
+
+## 5. Adaptation rapide pour international
+
+Pour un client hors du Cameroun, **multiplie** tes prix moyens par **3 à 5×** selon le marché :
+
+* Prix moyen Web vitrine : 200 000 × 4 = 800 000 FCFA (\~ 1200 USD)
+* Chatbot IA simple : 500 000 × 4 = 2 000 000 FCFA (\~ 3000 USD)
+
+Puis applique les mêmes coefficients.
+
+---
+
+### ✅ Tes prochaines étapes
+
+1. **Intégrer** ce calculateur dans un tableur ou un petit outil no‑code.
+2. **Tester** sur 3–5 cas réels pour ajuster tes coefficients (max ± 5 %).
+3. **Présenter** un devis clair : montrer prix de base + détails des options + total.
+
+Avec ce système, tu gagnes en transparence, rapidité et cohérence — gage de confiance pour tes prospects.

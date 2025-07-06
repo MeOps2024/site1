@@ -76,12 +76,21 @@ export default function AISection() {
               >
                 En Savoir Plus
               </button>
-              <a 
-                href="#contact?service=Chatbots Intelligents"
-                className="block w-full bg-blue-100 text-blue-700 py-3 rounded-lg font-semibold hover:bg-blue-200 transition-colors text-center"
-              >
-                Demander un Devis
-              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <a 
+                  href="#contact?service=Chatbots Intelligents"
+                  className="bg-blue-100 text-blue-700 py-3 rounded-lg font-semibold hover:bg-blue-200 transition-colors text-center text-sm"
+                >
+                  Devis
+                </a>
+                <a 
+                  href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20vos%20Chatbots%20Intelligents.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+                  target="_blank"
+                  className="bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center text-sm flex items-center justify-center"
+                >
+                  <i className="fab fa-whatsapp mr-1"></i> WhatsApp
+                </a>
+              </div>
             </div>
           </div>
 
@@ -116,12 +125,21 @@ export default function AISection() {
               >
                 En Savoir Plus
               </button>
-              <a 
-                href="#contact?service=Intégration Multi-Canaux"
-                className="block w-full bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center"
-              >
-                Demander un Devis
-              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <a 
+                  href="#contact?service=Intégration Multi-Canaux"
+                  className="bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center text-sm"
+                >
+                  Devis
+                </a>
+                <a 
+                  href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Intégration%20Multi-Canaux.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+                  target="_blank"
+                  className="bg-green-100 text-green-700 py-3 rounded-lg font-semibold hover:bg-green-200 transition-colors text-center text-sm flex items-center justify-center"
+                >
+                  <i className="fab fa-whatsapp mr-1"></i> WhatsApp
+                </a>
+              </div>
             </div>
           </div>
 
@@ -156,12 +174,21 @@ export default function AISection() {
               >
                 En Savoir Plus
               </button>
-              <a 
-                href="#contact?service=Automatisation Métier"
-                className="block w-full bg-purple-100 text-purple-700 py-3 rounded-lg font-semibold hover:bg-purple-200 transition-colors text-center"
-              >
-                Demander un Devis
-              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <a 
+                  href="#contact?service=Automatisation Métier"
+                  className="bg-purple-100 text-purple-700 py-3 rounded-lg font-semibold hover:bg-purple-200 transition-colors text-center text-sm"
+                >
+                  Devis
+                </a>
+                <a 
+                  href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Automatisation%20Métier.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+                  target="_blank"
+                  className="bg-purple-100 text-purple-700 py-3 rounded-lg font-semibold hover:bg-purple-200 transition-colors text-center text-sm flex items-center justify-center"
+                >
+                  <i className="fab fa-whatsapp mr-1"></i> WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>

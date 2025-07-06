@@ -20,7 +20,8 @@ interface MetaPixelEvent {
 export const useMetaPixel = () => {
   // Fonction pour tracker les événements
   const trackEvent = (event: MetaPixelEvent) => {
-    if (window.fbq && import.meta.env.VITE_META_PIXEL_ID) {
+    const pixelId = import.meta.env.VITE_META_PIXEL_ID || '541744309020974';
+    if (window.fbq && pixelId) {
       window.fbq('track', event.eventName, event.parameters || {});
     }
   };

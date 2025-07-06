@@ -27,7 +27,7 @@ if (typeof window !== 'undefined') {
 }
 
 // Initialize with environment variable or placeholder
-const metaPixelId = import.meta.env.VITE_META_PIXEL_ID || 'YOUR_PIXEL_ID';
+const metaPixelId = import.meta.env.VITE_META_PIXEL_ID || '541744309020974';
 window.fbq('init', metaPixelId);
 window.fbq('track', 'PageView');
 
