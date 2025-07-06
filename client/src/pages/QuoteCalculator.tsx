@@ -146,54 +146,12 @@ Merci !`;
     });
   };
 
-  const submitToNetlify = () => {
-    // Créer les données du devis pour Netlify
-    const formData = new FormData();
-    formData.append('form-name', 'quote-submission');
-    formData.append('service', quoteData.baseService);
-    formData.append('base_price', quoteData.basePrice.toString());
-    formData.append('total_coefficient', (quoteData.totalCoefficient * 100).toFixed(1) + '%');
-    formData.append('final_price', quoteData.finalPrice.toString());
-    formData.append('quote_details', JSON.stringify(quoteData.factors));
-    formData.append('submission_date', new Date().toISOString());
 
-    // Soumettre à Netlify
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData as any).toString()
-    })
-    .then(() => {
-      alert('Devis envoyé avec succès ! Nous vous recontacterons bientôt.');
-      // Track Meta Pixel event
-      trackEvent({
-        eventName: 'Lead',
-        parameters: {
-          content_name: quoteData.baseService,
-          value: quoteData.finalPrice,
-          currency: 'XAF',
-          service_type: quoteData.baseService
-        }
-      });
-    })
-    .catch((error) => {
-      console.error('Erreur:', error);
-      alert('Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter par WhatsApp.');
-    });
-  };
 
   if (currentStep === 1) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
-        {/* Hidden Netlify Form */}
-        <form name="quote-submission" netlify="true" hidden>
-          <input type="text" name="service" />
-          <input type="text" name="base_price" />
-          <input type="text" name="total_coefficient" />
-          <input type="text" name="final_price" />
-          <input type="text" name="quote_details" />
-          <input type="text" name="submission_date" />
-        </form>
+
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -553,12 +511,7 @@ Merci !`;
                 <span>Discuter sur WhatsApp</span>
               </button>
               
-              <button 
-                onClick={submitToNetlify}
-                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition-colors"
-              >
-                Envoyer le devis
-              </button>
+
               
               <button 
                 onClick={() => {
