@@ -1,0 +1,132 @@
+Excellent ! Coder votre propre bot vous donne une flexibilité maximale pour l'adapter précisément à vos besoins. Puisque vous vous occupez du code, concentrons-nous sur l'essentiel : les critères de tri des prospects.
+
+Pour que votre bot soit efficace, il doit poser les bonnes questions pour identifier si un prospect est un bon "fit" pour votre entreprise. Voici une décomposition des critères de qualification que vous devriez implémenter, allant du plus basique au plus avancé, avec des exemples de questions que votre bot pourrait poser.
+
+1. Critères Fondamentaux (BANT - Budget, Authority, Need, Timeline)
+
+Le framework BANT est un classique en vente, et c'est une excellente base pour la qualification automatisée.
+
+a. Besoin (Need)
+
+C'est le critère le plus important. Le prospect a-t-il un problème que votre solution peut résoudre ?
+
+    Questions clés :
+
+        "Quel est le principal défi que vous rencontrez actuellement dans [domaine lié à votre produit/service] ?"
+
+        "Qu'est-ce qui vous pousse à chercher une solution aujourd'hui ?"
+
+        "Si vous deviez résoudre [problème spécifique que votre produit résout], comment cela impacterait-il votre activité ?"
+
+    Logique pour le bot : Cherchez des mots-clés liés à vos offres ou des descriptions de problèmes que votre produit/service cible. Une réponse floue ou sans rapport peut indiquer un prospect non qualifié ou juste curieux.
+
+b. Budget (Budget)
+
+Le prospect a-t-il les moyens financiers ou une idée du budget pour votre solution ?
+
+    Questions clés :
+
+        "Avez-vous déjà alloué un budget pour ce type de projet ?"
+
+        "Quel est l'investissement envisagé pour résoudre ce défi ?" (Proposez des fourchettes : "moins de X€", "entre X€ et Y€", "plus de Y€" pour faciliter la réponse).
+
+        "Quel est le retour sur investissement que vous attendez de cette solution ?" (indirectement lié au budget).
+
+    Logique pour le bot : Une réponse "non" ou une fourchette de budget trop basse par rapport à vos offres est un signal d'alarme. Une absence totale de considération budgétaire peut indiquer une simple exploration.
+
+c. Autorité (Authority)
+
+Le prospect est-il un décideur ou a-t-il une influence significative sur la décision d'achat ?
+
+    Questions clés :
+
+        "Quel est votre rôle au sein de votre entreprise ?"
+
+        "Êtes-vous la personne principale en charge de ce type de décision ?"
+
+        "Y a-t-il d'autres personnes impliquées dans le processus de décision pour ce projet ?"
+
+    Logique pour le bot : Si le prospect n'est pas un décideur, le bot peut tenter de recueillir les coordonnées du décideur ou proposer d'envoyer des informations que le prospect pourra transmettre.
+
+d. Délai (Timeline)
+
+Le prospect a-t-il un calendrier défini pour la mise en œuvre de la solution ?
+
+    Questions clés :
+
+        "Quand envisagez-vous de mettre en place une solution ?" (Proposez des options : "Dans les 3 prochains mois", "Dans les 6-12 mois", "Pas de délai précis").
+
+        "Y a-t-il une date limite ou un événement qui nécessite cette solution rapidement ?"
+
+    Logique pour le bot : Un délai court (ex: 3 mois) indique un prospect plus chaud. Un délai trop long ou "pas de délai précis" peut signifier que le projet n'est pas encore une priorité.
+
+2. Critères Firmographiques et Démographiques
+
+Ces informations vous aident à déterminer si l'entreprise ou le profil du prospect correspond à votre client idéal.
+
+    Secteur d'activité : Votre solution est-elle spécifique à certains secteurs ?
+
+        "Dans quel secteur d'activité évolue votre entreprise ?"
+
+    Taille de l'entreprise : Nombre d'employés, chiffre d'affaires (si pertinent).
+
+        "Combien de personnes travaillent dans votre entreprise ?" (Proposez des tranches : "Moins de 10", "10-50", "50-250", etc.).
+
+    Localisation géographique : Si vos services sont limités géographiquement.
+
+        "Dans quelle région ou pays votre entreprise est-elle basée ?"
+
+    Titre de poste/Fonction : Au-delà de l'autorité, pour mieux comprendre le rôle du prospect.
+
+        "Quel est votre titre de poste ?"
+
+3. Critères Comportementaux / Engagement
+
+Ces critères peuvent être inférés par la manière dont le prospect interagit avec votre bot ou votre site web avant la conversation. Bien que plus difficiles à capter directement par le bot en conversation, vous pouvez les intégrer via des "poids" si vous combinez le bot avec d'autres données.
+
+    Source du prospect : D'où vient-il ? (Publicité payante, recherche organique, référence, etc.).
+
+        Le bot n'a pas besoin de poser cette question, mais vous pouvez la loguer en amont.
+
+    Pages visitées sur votre site : A-t-il consulté vos pages tarifs, études de cas, pages produits spécifiques ?
+
+    Interactions précédentes : A-t-il déjà téléchargé un livre blanc, assisté à un webinaire ?
+
+4. Pondération des Critères et Score de Qualification
+
+Une fois que votre bot a collecté toutes les informations, vous devez attribuer des scores à chaque réponse.
+
+    Définissez un système de points :
+
+        Besoin : Réponse très pertinente = 5 points ; Réponse moyennement pertinente = 3 points ; Pas pertinent = 0 point.
+
+        Budget : Correspond à nos tarifs = 4 points ; Un peu en dessous = 2 points ; Trop bas = 0 point.
+
+        Autorité : Décideur = 5 points ; Influenceur = 3 points ; Pas décideur = 1 point.
+
+        Délai : Dans les 3 mois = 4 points ; 6-12 mois = 2 points ; Pas défini = 0 point.
+
+        Et ainsi de suite pour les autres critères.
+
+    Calculez un score total : Votre bot additionne les points de toutes les réponses.
+
+    Définissez des seuils de qualification :
+
+        Prospect Chaud / Qualifié (MQL - Marketing Qualified Lead ou SQL - Sales Qualified Lead) : Score total > X points. Pour ces prospects, le bot doit proposer un rendez-vous avec un commercial, ou notifier immédiatement votre équipe.
+
+        Prospect Tiède / À Nurturer : Score total entre Y et X points. Le bot peut proposer de s'inscrire à une newsletter, télécharger un contenu, ou être recontacté plus tard.
+
+        Prospect Froid / Non Qualifié : Score total < Y points. Le bot peut simplement remercier le prospect, lui offrir des ressources générales ou clore la conversation.
+
+Implémentation dans votre Code :
+
+    Structure de données : Utilisez un objet ou un dictionnaire pour stocker les informations du prospect et son score au fur et à mesure.
+
+    Logique conditionnelle : Employez des if/else ou des switch pour diriger la conversation en fonction des réponses et pour attribuer les points.
+
+    Base de données : Pensez à stocker ces données pour chaque prospect pour pouvoir analyser les performances de votre bot et l'améliorer au fil du temps.
+
+N'oubliez pas que l'objectif est d'imiter une conversation humaine tout en étant efficace. Plus les questions sont naturelles, plus le prospect sera enclin à répondre honnêtement.
+
+Avez-vous une idée du type de première question que votre bot poserait pour engager la conversation ? Cela pourrait nous aider à affiner la séquence des questions de qualification.
+
