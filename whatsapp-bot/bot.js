@@ -8,6 +8,9 @@ const path = require('path');
 const PORT = 3001;
 const app = express();
 
+// Configuration WhatsApp Business (votre numéro principal)
+const BUSINESS_WHATSAPP = "+237686577791"; // Votre numéro WhatsApp Business
+
 // Données de qualification
 const services = {
     '1': {
@@ -300,20 +303,50 @@ function calculateScore(data) {
 // Réponse finale basée sur le score
 async function sendFinalResponse(phoneNumber, score, data) {
     const serviceName = services[data.service].name;
+    const qualCode = `QUAL-${Date.now().toString().slice(-4)}`;
     
     if (score >= 75) {
-        // Prospect CHAUD
+        // Prospect CHAUD - Redirection automatique vers WhatsApp Business
+        const businessMessage = `*PROSPECT QUALIFIÉ TRANSFÉRÉ*\n\n` +
+            `Bonjour ! Je suis un prospect qualifié transféré automatiquement par votre bot de qualification.\n\n` +
+            `*Mon profil :*\n` +
+            `• Service souhaité : ${data.serviceType}\n` +
+            `• Budget : ${data.budget}\n` +
+            `• Délai : ${data.timeline}\n` +
+            `• Score de qualification : ${score}/100\n` +
+            `• Code de référence : ${qualCode}\n\n` +
+            `Je suis prêt(e) à discuter de mon projet avec votre équipe.`;
+
+        // Message au prospect
         await client.sendMessage(phoneNumber, 
             `🎯 *Excellent !* Votre projet de *${serviceName}* correspond parfaitement à notre expertise.\n\n` +
             `*Votre profil :*\n` +
             `• Service : ${data.serviceType}\n` +
             `• Budget : ${data.budget}\n` +
-            `• Délai : ${data.timeline}\n\n` +
-            `Je vous propose un rendez-vous avec notre équipe technique pour étudier votre projet en détail.\n\n` +
-            `📞 Appelez-nous au : +237 686 577 791\n` +
-            `📧 Email : launlaferdlance2025@gmail.com\n\n` +
-            `*Mentionnez le code : QUAL-${Date.now().toString().slice(-4)} pour un suivi prioritaire.*`
+            `• Délai : ${data.timeline}\n` +
+            `• Score : ${score}/100 (Prospect prioritaire)\n\n` +
+            `🔄 *Je vous transfère automatiquement vers notre équipe commerciale.*\n\n` +
+            `⏱️ *Temps d'attente estimé : 2-4 heures*\n\n` +
+            `*Code de référence : ${qualCode}*`
         );
+
+        // Redirection vers WhatsApp Business
+        setTimeout(async () => {
+            const businessUrl = `https://wa.me/${BUSINESS_WHATSAPP.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(businessMessage)}`;
+            
+            await client.sendMessage(phoneNumber, 
+                `🚀 *Transfert immédiat vers notre équipe :*\n\n` +
+                `Cliquez sur ce lien pour continuer la conversation avec notre équipe commerciale :\n\n` +
+                `${businessUrl}\n\n` +
+                `*Ou contactez directement :*\n` +
+                `📞 ${BUSINESS_WHATSAPP}\n` +
+                `📧 launlaferdlance2025@gmail.com`
+            );
+        }, 2000);
+
+        // Notification interne (log)
+        console.log(`🔥 PROSPECT CHAUD TRANSFÉRÉ - Score: ${score} - Code: ${qualCode}`);
+        
     } else if (score >= 50) {
         // Prospect TIÈDE
         await client.sendMessage(phoneNumber, 
@@ -321,11 +354,12 @@ async function sendFinalResponse(phoneNumber, score, data) {
             `*Votre profil :*\n` +
             `• Service : ${data.serviceType}\n` +
             `• Budget : ${data.budget}\n` +
-            `• Délai : ${data.timeline}\n\n` +
-            `Je vous invite à consulter nos réalisations sur notre site web pour mieux évaluer notre expertise.\n\n` +
+            `• Délai : ${data.timeline}\n` +
+            `• Score : ${score}/100\n\n` +
+            `Je vous invite à consulter nos réalisations pour mieux évaluer notre expertise.\n\n` +
             `🌐 Site web : https://smartscalewebtech.netlify.app\n` +
-            `📞 Contact : +237 686 577 791\n\n` +
-            `*N'hésitez pas à nous recontacter quand votre projet sera plus précis !*`
+            `📞 Contact direct : ${BUSINESS_WHATSAPP}\n\n` +
+            `*Recontactez-nous quand votre projet sera plus précis !*`
         );
     } else {
         // Prospect FROID
@@ -334,7 +368,7 @@ async function sendFinalResponse(phoneNumber, score, data) {
             `Votre projet est encore en phase de réflexion, ce qui est parfaitement normal.\n\n` +
             `Je vous invite à consulter nos ressources gratuites :\n\n` +
             `🌐 Site web : https://smartscalewebtech.netlify.app\n` +
-            `📱 WhatsApp : +237 686 577 791\n\n` +
+            `📱 WhatsApp : ${BUSINESS_WHATSAPP}\n\n` +
             `*Recontactez-nous quand vous aurez défini vos besoins plus précisément !*`
         );
     }
