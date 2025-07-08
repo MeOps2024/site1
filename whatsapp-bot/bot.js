@@ -128,7 +128,7 @@ client.on('message', async (message) => {
     
     console.log(`📨 Message reçu de ${phoneNumber}: "${messageText}"`);
     
-    // Initialiser la conversation si nécessaire
+    // Initialiser la conversation si nécessaire SANS envoyer de message automatique
     if (!conversations[phoneNumber]) {
         conversations[phoneNumber] = {
             step: 'accueil',
@@ -138,6 +138,7 @@ client.on('message', async (message) => {
         console.log(`🆕 Nouvelle conversation initiée pour ${phoneNumber}`);
     }
     
+    // TRAITER LE MESSAGE REÇU
     await handleConversation(phoneNumber, messageText, message);
 });
 
@@ -145,55 +146,68 @@ client.on('message', async (message) => {
 async function handleConversation(phoneNumber, messageText, message) {
     const conv = conversations[phoneNumber];
     
+    console.log(`🔄 Étape actuelle: ${conv.step} | Service: ${conv.data.service || 'Non défini'} | WelcomeSent: ${conv.data.welcomeSent || false}`);
+    
     try {
         switch (conv.step) {
             case 'accueil':
+                console.log(`📞 Traitement accueil pour: "${messageText}"`);
                 await handleAccueil(phoneNumber, messageText, message);
                 break;
             case 'service_details':
+                console.log(`📋 Traitement détails service pour: "${messageText}"`);
                 await handleServiceDetails(phoneNumber, messageText, message);
                 break;
             case 'budget':
+                console.log(`💰 Traitement budget pour: "${messageText}"`);
                 await handleBudget(phoneNumber, messageText, message);
                 break;
             case 'autorite':
+                console.log(`👤 Traitement autorité pour: "${messageText}"`);
                 await handleAutorite(phoneNumber, messageText, message);
                 break;
             case 'timeline':
+                console.log(`⏱️ Traitement délai pour: "${messageText}"`);
                 await handleTimeline(phoneNumber, messageText, message);
                 break;
             case 'finalisation':
+                console.log(`✅ Finalisation pour: "${messageText}"`);
                 await handleFinalisation(phoneNumber, messageText, message);
                 break;
             default:
+                console.log(`❓ Étape inconnue: ${conv.step}, envoi du message d'accueil`);
                 await sendWelcomeMessage(phoneNumber);
         }
     } catch (error) {
-        console.error('Erreur dans la conversation:', error);
+        console.error('❌ Erreur dans la conversation:', error);
         await client.sendMessage(phoneNumber, "Désolé, une erreur s'est produite. Tapez 'recommencer' pour redémarrer.");
     }
 }
 
 // Accueil
 async function handleAccueil(phoneNumber, messageText, message) {
+    const conv = conversations[phoneNumber];
+    
     // Vérifier si c'est un redémarrage
     if (messageText.toLowerCase().includes('recommencer') || messageText.toLowerCase().includes('restart')) {
         await sendWelcomeMessage(phoneNumber);
         return;
     }
     
-    // Si pas encore de service sélectionné, envoyer le message d'accueil
-    if (!conversations[phoneNumber].data.service) {
+    // NOUVELLE LOGIQUE : Si pas encore de service ET c'est le premier message
+    if (!conv.data.service && !conv.data.welcomeSent) {
+        // Marquer que l'accueil a été envoyé
+        conv.data.welcomeSent = true;
         await sendWelcomeMessage(phoneNumber);
         return;
     }
     
-    // Détecter le choix du service avec reconnaissance intelligente
+    // TRAITER LA RÉPONSE DE L'UTILISATEUR
     const serviceChoice = parseUserChoice(messageText);
     
     if (serviceChoice && services[serviceChoice]) {
-        conversations[phoneNumber].data.service = serviceChoice;
-        conversations[phoneNumber].step = 'service_details';
+        conv.data.service = serviceChoice;
+        conv.step = 'service_details';
         
         const service = services[serviceChoice];
         const options = service.types.map((type, index) => `${index + 1}️⃣ ${type}`).join('\n');
@@ -359,11 +373,17 @@ async function handleTimeline(phoneNumber, messageText, message) {
 
 // Message de bienvenue
 async function sendWelcomeMessage(phoneNumber) {
-    conversations[phoneNumber] = {
-        step: 'accueil',
-        data: {},
-        timestamp: new Date()
-    };
+    // NE PAS recréer la conversation si elle existe déjà
+    if (!conversations[phoneNumber]) {
+        conversations[phoneNumber] = {
+            step: 'accueil',
+            data: {},
+            timestamp: new Date()
+        };
+    }
+    
+    // Réinitialiser seulement le flag d'accueil
+    conversations[phoneNumber].data.welcomeSent = true;
     
     console.log(`🤖 Envoi du message d'accueil à ${phoneNumber}`);
     
