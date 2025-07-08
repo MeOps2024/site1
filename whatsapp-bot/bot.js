@@ -76,24 +76,26 @@ const services = {
 function parseUserChoice(text) {
     const normalized = text.toLowerCase().trim();
     
-    // Mappings pour tous les formats possibles
+    // Mappings pour tous les formats possibles (jusqu'à 5 options)
     const choiceMap = {
         // Chiffres
-        '1': '1', '2': '2', '3': '3', '4': '4',
+        '1': '1', '2': '2', '3': '3', '4': '4', '5': '5',
         // Lettres françaises
         'un': '1', 'une': '1', 'premier': '1', 'première': '1', 'a': '1',
         'deux': '2', 'deuxième': '2', 'second': '2', 'seconde': '2', 'b': '2',
         'trois': '3', 'troisième': '3', 'c': '3',
         'quatre': '4', 'quatrième': '4', 'd': '4',
+        'cinq': '5', 'cinquième': '5', 'e': '5',
         // Lettres anglaises
         'one': '1', 'first': '1',
         'two': '2', 'second': '2',
         'three': '3', 'third': '3',
         'four': '4', 'fourth': '4',
+        'five': '5', 'fifth': '5',
         // Chiffres romains
-        'i': '1', 'ii': '2', 'iii': '3', 'iv': '4',
+        'i': '1', 'ii': '2', 'iii': '3', 'iv': '4', 'v': '5',
         // Autres variations
-        '1er': '1', '1ère': '1', '2ème': '2', '3ème': '3', '4ème': '4'
+        '1er': '1', '1ère': '1', '2ème': '2', '3ème': '3', '4ème': '4', '5ème': '5'
     };
     
     // Recherche directe
@@ -228,47 +230,40 @@ async function handleConversation(phoneNumber, messageText, message) {
 
 // Accueil
 async function handleAccueil(phoneNumber, messageText, message) {
-    const conv = conversations[phoneNumber];
-    
-    // Vérifier si c'est un redémarrage
+    const choice = parseUserChoice(messageText);
+
     if (messageText.toLowerCase().includes('recommencer') || messageText.toLowerCase().includes('restart')) {
         await sendWelcomeMessage(phoneNumber);
         return;
     }
-    
-    // NOUVELLE LOGIQUE : Si pas encore de service ET c'est le premier message
-    if (!conv.data.service && !conv.data.welcomeSent) {
-        // Marquer que l'accueil a été envoyé
-        conv.data.welcomeSent = true;
-        await sendWelcomeMessage(phoneNumber);
-        return;
-    }
-    
-    // TRAITER LA RÉPONSE DE L'UTILISATEUR
-    const serviceChoice = parseUserChoice(messageText);
-    
-    if (serviceChoice && services[serviceChoice]) {
-        conv.data.service = serviceChoice;
-        conv.step = 'service_details';
-        
-        const service = services[serviceChoice];
-        const options = service.types.map((type, index) => `${index + 1}️⃣ ${type}`).join('\n');
-        
+
+    if (choice && services[choice]) {
+        conversations[phoneNumber].data.service = choice;
+        conversations[phoneNumber].step = 'service_details';
+
+        const service = services[choice];
         console.log(`✅ Service sélectionné: ${service.name} pour ${phoneNumber}`);
-        
-        await client.sendMessage(phoneNumber, 
-            `Parfait ! Vous vous intéressez à : *${service.name}*\n\n` +
-            `Quel type de projet vous intéresse le plus ?\n\n${options}\n\n` +
-            `Répondez par le numéro correspondant (1, 2 ou 3).`
+
+        await client.sendMessage(phoneNumber,
+            `Excellent choix ! 🎯\n\n` +
+            `*${service.name}*\n` +
+            `${service.description}\n\n` +
+            `Quel type de solution vous intéresse ? 🤔\n\n` +
+            service.types.map((type, index) => 
+                `${index + 1}️⃣ *${type.name}*\n   ${type.desc}`
+            ).join('\n\n') +
+            `\n\n💡 *Plus d'infos :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Répondez par le numéro de votre choix ! 😊`
         );
     } else {
-        console.log(`❌ Choix non reconnu: "${messageText}" de ${phoneNumber}`);
-        await client.sendMessage(phoneNumber, 
-            `Je n'ai pas compris votre choix. Merci de sélectionner un numéro :\n\n` +
-            `1️⃣ Site web professionnel\n` +
-            `2️⃣ Solutions IA et automatisation\n` +
-            `3️⃣ Marketing digital\n\n` +
-            `Vous pouvez répondre par "1", "un", "premier", etc.`
+        await client.sendMessage(phoneNumber,
+            `Bienvenue chez *SmartScale WebTech* ! 👋\n\n` +
+            `Nous transformons votre business avec des solutions digitales de pointe. Quel est votre principal besoin ? 🚀\n\n` +
+            `1️⃣ *Site web professionnel* 🌐\n   Votre vitrine digitale pour attirer plus de clients\n\n` +
+            `2️⃣ *Solutions IA et automatisation* 🤖\n   Révolutionnez votre productivité\n\n` +
+            `3️⃣ *Marketing digital* 📈\n   Développez votre visibilité en ligne\n\n` +
+            `💡 *Plus de détails :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Répondez par un chiffre ou mot-clé (ex: "1", "web", "IA", etc.) 😊`
         );
     }
 }
@@ -281,7 +276,7 @@ async function handleServiceDetails(phoneNumber, messageText, message) {
     
     if (typeChoice && typeChoice >= '1' && typeChoice <= '3') {
         const typeIndex = parseInt(typeChoice) - 1;
-        conv.data.serviceType = services[serviceChoice].types[typeIndex];
+        conv.data.serviceType = services[serviceChoice].types[typeIndex].name;
         conv.step = 'budget';
         
         const budgetOptions = services[serviceChoice].budgets.map((budget, index) => 
@@ -291,16 +286,21 @@ async function handleServiceDetails(phoneNumber, messageText, message) {
         console.log(`✅ Type de service sélectionné: ${conv.data.serviceType} pour ${phoneNumber}`);
         
         await client.sendMessage(phoneNumber, 
-            `Parfait ! Vous souhaitez : *${conv.data.serviceType}*\n\n` +
-            `Quel est votre budget envisagé pour ce projet ?\n\n${budgetOptions}\n\n` +
-            `Répondez par le numéro correspondant (1, 2 ou 3).`
+            `Parfait ! 🎯 Vous souhaitez : *${conv.data.serviceType}*\n\n` +
+            `Quel est votre budget envisagé pour ce projet ? 💰\n\n${budgetOptions}\n\n` +
+            `💡 *Turbo* : +15-20% pour livraison en 2 semaines\n\n` +
+            `💡 *Plus d'infos :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Répondez par le numéro correspondant ! 😊`
         );
     } else {
         console.log(`❌ Type non reconnu: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Je n'ai pas compris votre choix. Merci de sélectionner un numéro entre 1 et 3 :\n\n` +
-            `${services[serviceChoice].types.map((type, index) => `${index + 1}️⃣ ${type}`).join('\n')}\n\n` +
-            `Vous pouvez répondre par "1", "deux", "third", etc.`
+            `Je n'ai pas compris votre choix 🤔 Merci de sélectionner un numéro :\n\n` +
+            services[serviceChoice].types.map((type, index) => 
+                `${index + 1}️⃣ *${type.name}*\n   ${type.desc}`
+            ).join('\n\n') +
+            `\n\n💡 *Plus d'infos :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Vous pouvez répondre par "1", "deux", "third", etc. 😊`
         );
     }
 }
@@ -319,18 +319,22 @@ async function handleBudget(phoneNumber, messageText, message) {
         console.log(`✅ Budget sélectionné: ${conv.data.budget} pour ${phoneNumber}`);
         
         await client.sendMessage(phoneNumber, 
-            `Très bien ! Budget retenu : *${conv.data.budget}*\n\n` +
-            `Êtes-vous la personne qui prend les décisions pour ce type de projet dans votre entreprise ?\n\n` +
-            `1️⃣ Oui, je suis le décideur principal\n` +
-            `2️⃣ Je participe à la décision\n` +
-            `3️⃣ Je collecte des informations pour mon équipe`
+            `Parfait ! 💰 Budget retenu : *${conv.data.budget}*\n\n` +
+            `Dernière question pour bien vous orienter : Êtes-vous la personne qui prend les décisions pour ce type de projet ? 🤔\n\n` +
+            `1️⃣ Oui, je suis le décideur principal 👨‍💼\n` +
+            `2️⃣ Je participe à la décision 🤝\n` +
+            `3️⃣ Je collecte des informations pour mon équipe 📋\n\n` +
+            `💡 *Plus d'infos :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Répondez par le numéro correspondant ! 😊`
         );
     } else {
         console.log(`❌ Budget non reconnu: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Je n'ai pas compris votre choix de budget. Merci de sélectionner :\n\n` +
+            `Je n'ai pas compris votre choix de budget 🤔\n\n` +
+            `Merci de sélectionner une fourchette :\n\n` +
             `${services[serviceChoice].budgets.map((budget, index) => `${index + 1}️⃣ ${budget}`).join('\n')}\n\n` +
-            `Vous pouvez répondre par "1", "deux", "third", etc.`
+            `💡 *Plus d'infos :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Vous pouvez répondre par "1", "deux", "third", etc. 😊`
         );
     }
 }
@@ -349,13 +353,15 @@ async function handleAutorite(phoneNumber, messageText, message) {
         console.log(`✅ Autorité sélectionnée: ${conv.data.autorite} pour ${phoneNumber}`);
         
         await client.sendMessage(phoneNumber, 
-            `Noté ! Profil : *${conv.data.autorite}*\n\n` +
-            `Dans quel délai souhaiteriez-vous voir ce projet se concrétiser ?\n\n` +
-            `1️⃣ 1 mois (Turbo +20%)\n` +
-            `2️⃣ 2-3 mois (Standard)\n` +
-            `3️⃣ 4-6 mois\n` +
-            `4️⃣ Plus tard dans l'année\n` +
-            `5️⃣ Pas de délai précis`
+            `Noté ! 👍 Profil : *${conv.data.autorite}*\n\n` +
+            `Dans quel délai souhaiteriez-vous voir ce projet se concrétiser ? ⏱️\n\n` +
+            `1️⃣ 1 mois (Turbo +20%) 🚀\n` +
+            `2️⃣ 2-3 mois (Standard) ⭐\n` +
+            `3️⃣ 4-6 mois 📅\n` +
+            `4️⃣ Plus tard dans l'année 🗓️\n` +
+            `5️⃣ Pas de délai précis 🤷‍♂️\n\n` +
+            `💡 *Plus d'infos :* https://smartscalewebtech.netlify.app/\n\n` +
+            `Répondez par le numéro correspondant ! 😊`
         );
     } else {
         console.log(`❌ Autorité non reconnue: "${messageText}" de ${phoneNumber}`);
@@ -479,71 +485,47 @@ function calculateScore(data) {
 // Réponse finale basée sur le score
 async function sendFinalResponse(phoneNumber, score, data) {
     const serviceName = services[data.service].name;
-    const qualCode = `QUAL-${Date.now().toString().slice(-4)}`;
     
-    if (score >= 75) {
-        // Prospect CHAUD - Redirection automatique vers WhatsApp Business
-        const businessMessage = `*PROSPECT QUALIFIÉ TRANSFÉRÉ*\n\n` +
-            `Bonjour ! Je suis un prospect qualifié transféré automatiquement par votre bot de qualification.\n\n` +
-            `*Mon profil :*\n` +
-            `• Service souhaité : ${data.serviceType}\n` +
-            `• Budget : ${data.budget}\n` +
-            `• Délai : ${data.timeline}\n` +
-            `• Score de qualification : ${score}/100\n` +
-            `• Code de référence : ${qualCode}\n\n` +
-            `Je suis prêt(e) à discuter de mon projet avec votre équipe.`;
-
-        // Message au prospect
+    if (score >= 70) {
+        // Prospect TRÈS qualifié - transfert immédiat
         await client.sendMessage(phoneNumber, 
-            `🎯 *Excellent !* Votre projet de *${serviceName}* correspond parfaitement à notre expertise.\n\n` +
-            `*Votre profil :*\n` +
-            `• Service : ${data.serviceType}\n` +
-            `• Budget : ${data.budget}\n` +
-            `• Délai : ${data.timeline}\n` +
-            `• Score : ${score}/100 (Prospect prioritaire)\n\n` +
-            `🔄 *Je vous transfère automatiquement vers notre équipe commerciale.*\n\n` +
-            `⏱️ *Temps d'attente estimé : 2-4 heures*\n\n` +
-            `*Code de référence : ${qualCode}*`
+            `🎉 Fantastique ! Votre profil correspond parfaitement à nos services premium.\n\n` +
+            `✅ *Récapitulatif de votre projet :*\n` +
+            `🔹 Service : ${serviceName}\n` +
+            `🔹 Solution : ${data.serviceType}\n` +
+            `🔹 Budget : ${data.budget}\n` +
+            `🔹 Délai : ${data.timeline}\n` +
+            `🔹 Score de qualification : ${score}/100\n\n` +
+            `🤝 *EXCELLENTE NOUVELLE !* Je vous transfère immédiatement vers notre expert commercial qui répondra à toutes vos questions et préoccupations :\n\n` +
+            `👨‍💼 *Contact direct :* ${BUSINESS_WHATSAPP}\n\n` +
+            `Il élaborera avec vous une solution personnalisée qui transformera votre business ! 🚀\n\n` +
+            `💡 *Portfolio complet :* https://smartscalewebtech.netlify.app/`
         );
-
-        // Redirection vers WhatsApp Business
-        setTimeout(async () => {
-            const businessUrl = `https://wa.me/${BUSINESS_WHATSAPP.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(businessMessage)}`;
-            
-            await client.sendMessage(phoneNumber, 
-                `🚀 *Transfert immédiat vers notre équipe :*\n\n` +
-                `Cliquez sur ce lien pour continuer la conversation avec notre équipe commerciale :\n\n` +
-                `${businessUrl}\n\n` +
-                `*Ou contactez directement :*\n` +
-                `📞 ${BUSINESS_WHATSAPP}\n` +
-                `📧 launlaferdlance2025@gmail.com`
-            );
-        }, 2000);
-
-        // Notification interne (log)
-        console.log(`🔥 PROSPECT CHAUD TRANSFÉRÉ - Score: ${score} - Code: ${qualCode}`);
-        
     } else if (score >= 50) {
-        // Prospect TIÈDE
+        // Prospect MOYEN - encourager le contact
         await client.sendMessage(phoneNumber, 
-            `👍 *Intéressant !* Votre projet de *${serviceName}* est réalisable.\n\n` +
-            `*Votre profil :*\n` +
-            `• Service : ${data.serviceType}\n` +
-            `• Budget : ${data.budget}\n` +
-            `• Délai : ${data.timeline}\n` +
-            `• Score : ${score}/100\n\n` +
-            `Je vous invite à consulter nos réalisations pour mieux évaluer notre expertise.\n\n` +
-            `🌐 Site web : https://smartscalewebtech.netlify.app\n` +
-            `📞 Contact direct : ${BUSINESS_WHATSAPP}\n\n` +
-            `*Recontactez-nous quand votre projet sera plus précis !*`
+            `Merci pour ces informations précieuses ! 👍\n\n` +
+            `✅ *Votre projet nous intéresse :*\n` +
+            `🔹 Service : ${serviceName}\n` +
+            `🔹 Solution : ${data.serviceType}\n` +
+            `🔹 Budget : ${data.budget}\n` +
+            `🔹 Délai : ${data.timeline}\n\n` +
+            `💡 Notre expert commercial est à votre disposition pour affiner votre projet et répondre à vos interrogations :\n\n` +
+            `📱 *WhatsApp Business :* ${BUSINESS_WHATSAPP}\n\n` +
+            `Il vous proposera une solution adaptée à vos besoins spécifiques ! 🎯\n\n` +
+            `💡 *Plus d'exemples :* https://smartscalewebtech.netlify.app/`
         );
     } else {
-        // Prospect FROID
+        // Prospect FAIBLE - informer et laisser la porte ouverte
         await client.sendMessage(phoneNumber, 
-            `📚 *Merci* pour votre intérêt pour *${serviceName}* !\n\n` +
-            `Votre projet est encore en phase de réflexion, ce qui est parfaitement normal.\n\n` +
-            `Je vous invite à consulter nos ressources gratuites :\n\n` +
-            `🌐 Site web : https://smartscalewebtech.netlify.app\n` +
+            `Merci pour votre intérêt ! 🙏\n\n` +
+            `Votre projet (${data.serviceType}, budget ${data.budget}) présente des opportunités intéressantes.\n\n` +
+            `💡 Notre expert commercial reste disponible pour explorer ensemble les meilleures options et répondre à vos questions :\n\n` +
+            `📱 *WhatsApp Business :* ${BUSINESS_WHATSAPP}\n\n` +
+            `N'hésitez pas à le contacter quand vous serez prêt ! Nous sommes là pour vous accompagner. 😊\n\n` +
+            `💡 *Découvrez nos réalisations :* https://smartscalewebtech.netlify.app/`
+        );
+    }
             `📱 WhatsApp : ${BUSINESS_WHATSAPP}\n\n` +
             `*Recontactez-nous quand vous aurez défini vos besoins plus précisément !*`
         );
