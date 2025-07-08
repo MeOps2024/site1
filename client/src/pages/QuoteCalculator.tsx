@@ -67,7 +67,7 @@ export default function QuoteCalculator() {
       finalPrice: finalPrice
     }));
 
-    // Track quote calculation
+    // Track quote calculation - ÉVÉNEMENTS MULTIPLES POUR META
     trackEvent({
       eventName: 'InitiateCheckout',
       parameters: {
@@ -75,6 +75,21 @@ export default function QuoteCalculator() {
         value: finalPrice,
         currency: 'XAF',
         content_type: 'service_quote'
+      }
+    });
+
+    // NOUVEAU : Track comme Lead pour optimisation Meta
+    trackEvent({
+      eventName: 'Lead',
+      parameters: {
+        content_name: 'Quote Generated',
+        value: finalPrice,
+        currency: 'XAF',
+        content_category: 'quote_completion',
+        custom_data: {
+          lead_quality: finalPrice > 1000000 ? 'high' : finalPrice > 500000 ? 'medium' : 'low',
+          service_type: quoteData.baseService.includes('IA') ? 'ai_service' : 'web_service'
+        }
       }
     });
   };
@@ -133,7 +148,7 @@ Merci !`;
     const message = generateWhatsAppMessage();
     window.open(`https://wa.me/237686577791?text=${message}`, '_blank');
     
-    // Track WhatsApp contact
+    // Track WhatsApp contact - CONVERSION FINALE
     trackEvent({
       eventName: 'Contact',
       parameters: {
@@ -142,6 +157,22 @@ Merci !`;
         service_type: quoteData.baseService,
         value: quoteData.finalPrice,
         currency: 'XAF'
+      }
+    });
+
+    // NOUVEAU : Track comme Purchase pour Meta (valeur d'acompte)
+    trackEvent({
+      eventName: 'Purchase',
+      parameters: {
+        content_name: 'Service Quote Request',
+        value: Math.round(quoteData.finalPrice * 0.1), // 10% = acompte
+        currency: 'XAF',
+        content_type: 'service',
+        custom_data: {
+          full_quote_value: quoteData.finalPrice,
+          conversion_stage: 'quote_to_contact',
+          lead_temperature: 'hot'
+        }
       }
     });
   };

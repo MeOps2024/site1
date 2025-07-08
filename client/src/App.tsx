@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import HomePage from "@/pages/HomePage";
 import QuoteCalculator from "@/pages/QuoteCalculator";
+import LeadCapture from "@/pages/LeadCapture";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import { initGA } from "./lib/analytics";
@@ -18,6 +19,7 @@ function Router() {
     <Switch>
       <Route path="/" component={HomePage} />
       <Route path="/devis" component={QuoteCalculator} />
+      <Route path="/lead" component={LeadCapture} />
       <Route component={NotFound} />
     </Switch>
   );

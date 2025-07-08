@@ -133,6 +133,14 @@ Changelog:
   - Added service pre-selection functionality to contact form
   - Updated FAQ section with detailed pricing information
   - Enhanced WhatsApp configuration with new pricing tiers
+- July 08, 2025. Meta Ads optimization for limited budget ($12 remaining)
+  - Created LeadCapture page (/lead) with 4-step conversion funnel
+  - Enhanced tracking with multiple conversion events (ViewContent → AddToCart → Lead → Purchase)
+  - Added micro-conversions strategy to provide Meta with sufficient data
+  - Optimized Purchase events with realistic values (10% deposit amounts)
+  - Created comprehensive Meta Ads strategy document for budget constraints
+  - Enhanced QuoteCalculator with dual tracking (Lead + Purchase events)
+  - Implemented lead qualification system with service/budget/timeline selection
 ```
 
 ## User Preferences
