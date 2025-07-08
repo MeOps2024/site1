@@ -11,22 +11,64 @@ const app = express();
 // Configuration WhatsApp Business (votre numéro principal)
 const BUSINESS_WHATSAPP = "+237686577791"; // Votre numéro WhatsApp Business
 
-// Données de qualification - PRIX CORRECTS
+// Données de qualification avec descriptions détaillées
 const services = {
     '1': {
         name: 'Site web professionnel',
+        description: '🌐 Votre vitrine digitale pour attirer et convertir vos clients en ligne',
         budgets: ['150K - 250K FCFA', '250K - 450K FCFA', '450K - 600K FCFA'],
-        types: ['Site vitrine', 'Site e-commerce', 'Application web']
+        types: [
+            {
+                name: 'Site vitrine',
+                desc: 'Présentation élégante de votre entreprise pour gagner en crédibilité 🏆'
+            },
+            {
+                name: 'Site e-commerce', 
+                desc: 'Vendez vos produits 24h/24 et automatisez vos ventes en ligne 💰'
+            },
+            {
+                name: 'Application web',
+                desc: 'Solution sur-mesure pour optimiser vos processus métier 🚀'
+            }
+        ]
     },
     '2': {
         name: 'Solutions IA et automatisation',
+        description: '🤖 Révolutionnez votre productivité et réduisez vos coûts avec l\'IA',
         budgets: ['400K - 800K FCFA', '800K - 1.8M FCFA', '1.8M - 3.5M FCFA'],
-        types: ['Chatbot simple', 'Automatisation métier', 'IA conversationnelle complète']
+        types: [
+            {
+                name: 'Chatbot simple',
+                desc: 'Assistant virtuel pour répondre à vos clients 24h/24 et filtrer les prospects 💬'
+            },
+            {
+                name: 'Automatisation métier',
+                desc: 'Éliminez les tâches répétitives et gagnez 5-10h/semaine ⚡'
+            },
+            {
+                name: 'IA conversationnelle complète',
+                desc: 'Assistant IA avancé qui comprend et traite vos demandes complexes 🧠'
+            }
+        ]
     },
     '3': {
         name: 'Marketing digital',
+        description: '📈 Développez votre visibilité et générez plus de leads qualifiés',
         budgets: ['150K - 300K FCFA', '300K - 600K FCFA', '600K+ FCFA'],
-        types: ['Meta Ads', 'SEO et référencement', 'Stratégie digitale complète']
+        types: [
+            {
+                name: 'Meta Ads',
+                desc: 'Campagnes publicitaires ciblées pour attirer vos clients idéaux 🎯'
+            },
+            {
+                name: 'SEO et référencement',
+                desc: 'Apparaissez en premier sur Google quand on cherche vos services 🔍'
+            },
+            {
+                name: 'Stratégie digitale complète',
+                desc: 'Plan marketing global pour dominer votre marché en ligne 📊'
+            }
+        ]
     }
 };
 
@@ -388,14 +430,14 @@ async function sendWelcomeMessage(phoneNumber) {
     console.log(`🤖 Envoi du message d'accueil à ${phoneNumber}`);
     
     await client.sendMessage(phoneNumber, 
-        `Bonjour ! Je suis l'assistant *SmartScale WebTech*.\n\n` +
-        `Je vais vous qualifier rapidement pour vous orienter vers notre équipe commerciale.\n\n` +
-        `Quel est votre principal besoin ?\n\n` +
-        `1️⃣ Site web professionnel\n` +
-        `2️⃣ Solutions IA et automatisation\n` +
-        `3️⃣ Marketing digital\n\n` +
-        `Répondez par le numéro de votre choix.\n` +
-        `(Vous pouvez dire "1", "un", "premier", "one", etc.)`
+        `Bonjour ! 👋 Je suis l'assistant *SmartScale WebTech*.\n\n` +
+        `Je vais vous qualifier rapidement pour vous connecter avec notre expert commercial. Les prix et durées que vous verrez sont des *estimations* - nous pourrons approfondir vos besoins lors de votre échange avec lui.\n\n` +
+        `Quel est votre principal besoin ? 🚀\n\n` +
+        `1️⃣ Site web professionnel 🌐\n` +
+        `2️⃣ Solutions IA et automatisation 🤖\n` +
+        `3️⃣ Marketing digital 📈\n\n` +
+        `💡 *Plus de détails :* https://smartscalewebtech.netlify.app/\n\n` +
+        `Répondez par le numéro de votre choix (ex: "1", "deux", "IA", etc.) 😊`
     );
 }
 
