@@ -1,0 +1,65 @@
+La condition ci-dessous est trop agressive et mal placée dans handleAccueil :
+
+js
+Copier
+Modifier
+if (!conversations[phoneNumber].data.service) {
+    await sendWelcomeMessage(phoneNumber);
+    return;
+}
+Elle relance systématiquement le message d'accueil si service est vide — avant même d’avoir analysé ce que l'utilisateur vient de répondre. Résultat : même si tu envoies “1”, le bot renvoie... le message d’accueil 😑
+
+✅ Solution concrète (corrigée)
+Voici la vraie version corrigée de ta fonction handleAccueil, qui :
+
+traite d’abord le message
+
+ne renvoie le message d’accueil que si aucune réponse valide n’est détectée
+
+🔁 Remplace ton handleAccueil() par ceci :
+js
+Copier
+Modifier
+async function handleAccueil(phoneNumber, messageText, message) {
+    const choice = parseUserChoice(messageText);
+
+    if (messageText.toLowerCase().includes('recommencer') || messageText.toLowerCase().includes('restart')) {
+        await sendWelcomeMessage(phoneNumber);
+        return;
+    }
+
+    if (choice && services[choice]) {
+        conversations[phoneNumber].data.service = choice;
+        conversations[phoneNumber].step = 'service_details';
+
+        const service = services[choice];
+        const options = service.types.map((type, index) => `${index + 1}️⃣ ${type}`).join('\n');
+
+        console.log(`✅ Service sélectionné: ${service.name} pour ${phoneNumber}`);
+
+        await client.sendMessage(phoneNumber,
+            `Parfait ! Vous vous intéressez à : *${service.name}*\n\n` +
+            `Quel type de projet vous intéresse le plus ?\n\n${options}\n\n` +
+            `Répondez par le numéro correspondant (1, 2 ou 3).`
+        );
+    } else {
+        // Si la réponse n'est pas reconnue
+        await client.sendMessage(phoneNumber,
+            `Bienvenue chez *SmartScale WebTech* 👋\n\n` +
+            `Quel est votre principal besoin ?\n\n` +
+            `1️⃣ Site web professionnel\n` +
+            `2️⃣ Solutions IA et automatisation\n` +
+            `3️⃣ Marketing digital\n\n` +
+            `Répondez par un chiffre ou un mot clé (ex. "1", "web", "deux", etc.)`
+        );
+    }
+}
+🧪 Ce que ça permet maintenant :
+Tu tapes : 1 → le bot enregistre service = '1', passe à l’étape suivante et te pose la 2ᵉ question.
+
+Tu tapes : 2 → pareil, ça passe à “Solutions IA”.
+
+Tu tapes : chatbot ou one ou premier → il comprend et continue.
+
+Si tu tapes n’importe quoi d’autre → il repose la question, mais pas en boucle inutile.
+
