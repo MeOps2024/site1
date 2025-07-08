@@ -526,10 +526,6 @@ async function sendFinalResponse(phoneNumber, score, data) {
             `💡 *Découvrez nos réalisations :* https://smartscalewebtech.netlify.app/`
         );
     }
-            `📱 WhatsApp : ${BUSINESS_WHATSAPP}\n\n` +
-            `*Recontactez-nous quand vous aurez défini vos besoins plus précisément !*`
-        );
-    }
 }
 
 // Sauvegarde des prospects
