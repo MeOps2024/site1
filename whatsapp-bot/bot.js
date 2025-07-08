@@ -43,16 +43,40 @@ const client = new Client({
     }
 });
 
-// Génération du QR code
+// Variable pour stocker le code de jumelage
+let pairingCode = null;
+
+// Génération du QR code ET code de jumelage
 client.on('qr', (qr) => {
-    console.log('📱 Scannez ce QR code avec WhatsApp sur votre téléphone :');
+    console.log('\n🔗 DEUX MÉTHODES DE CONNEXION DISPONIBLES :');
+    console.log('\n📱 MÉTHODE 1 - QR CODE :');
+    console.log('Scannez ce QR code avec WhatsApp sur votre téléphone :');
     qrcode.generate(qr, { small: true });
+    
+    console.log('\n🔢 MÉTHODE 2 - CODE DE JUMELAGE :');
+    console.log('Si le QR code ne fonctionne pas, utilisez le code de jumelage ci-dessous');
+    console.log('👆 Tapez "code" dans le terminal pour obtenir le code à 8 chiffres');
+});
+
+// Support du code de jumelage
+client.on('code', (code) => {
+    pairingCode = code;
+    console.log('\n🔢 CODE DE JUMELAGE À 8 CHIFFRES :');
+    console.log(`📱 ${code}`);
+    console.log('\nÉtapes sur votre téléphone :');
+    console.log('1. Ouvrez WhatsApp');
+    console.log('2. Allez dans Paramètres > Appareils liés');
+    console.log('3. Appuyez sur "Lier un appareil"');
+    console.log('4. Sélectionnez "Lier avec un numéro"');
+    console.log(`5. Entrez ce code : ${code}`);
+    console.log('\n⏱️ Ce code expire dans 2 minutes !');
 });
 
 // Connexion établie
 client.on('ready', () => {
-    console.log('✅ Bot WhatsApp SmartScale WebTech démarré !');
+    console.log('\n✅ Bot WhatsApp SmartScale WebTech démarré !');
     console.log('🌐 Dashboard disponible sur : http://localhost:' + PORT);
+    console.log('📱 WhatsApp connecté et prêt à recevoir des messages !');
 });
 
 // Gestion des messages
@@ -457,6 +481,40 @@ app.get('/prospects.json', (req, res) => {
     res.json(prospects);
 });
 
+// Commande pour générer le code de jumelage
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', (input) => {
+    const command = input.toString().trim().toLowerCase();
+    
+    if (command === 'code' || command === 'pairing') {
+        if (pairingCode) {
+            console.log(`\n🔢 CODE DE JUMELAGE ACTUEL : ${pairingCode}`);
+            console.log('⏱️ Ce code expire dans 2 minutes !');
+        } else {
+            console.log('\n❌ Aucun code de jumelage disponible.');
+            console.log('Le code apparaît automatiquement au démarrage du bot.');
+        }
+    } else if (command === 'help' || command === 'aide') {
+        console.log('\n📋 COMMANDES DISPONIBLES :');
+        console.log('• code      - Afficher le code de jumelage');
+        console.log('• help      - Afficher cette aide');
+        console.log('• status    - Statut de la connexion');
+        console.log('• prospects - Nombre de prospects');
+    } else if (command === 'status') {
+        console.log(`\n📊 STATUT DU BOT :`);
+        console.log(`• Dashboard : http://localhost:${PORT}`);
+        console.log(`• Prospects traités : ${prospects.length}`);
+        console.log(`• WhatsApp Business : ${BUSINESS_WHATSAPP}`);
+    } else if (command === 'prospects') {
+        console.log(`\n👥 PROSPECTS : ${prospects.length} traités`);
+        const chauds = prospects.filter(p => p.score >= 75).length;
+        const tiedes = prospects.filter(p => p.score >= 50 && p.score < 75).length;
+        console.log(`🔥 Chauds : ${chauds}`);
+        console.log(`🟡 Tièdes : ${tiedes}`);
+        console.log(`❄️ Froids : ${prospects.length - chauds - tiedes}`);
+    }
+});
+
 // Chargement des prospects existants
 if (fs.existsSync('./prospects.json')) {
     prospects = JSON.parse(fs.readFileSync('./prospects.json', 'utf8'));
@@ -465,6 +523,9 @@ if (fs.existsSync('./prospects.json')) {
 // Démarrage
 app.listen(PORT, () => {
     console.log(`📊 Dashboard démarré sur http://localhost:${PORT}`);
+    console.log('\n💡 AIDE :');
+    console.log('• Tapez "code" pour obtenir le code de jumelage');
+    console.log('• Tapez "help" pour voir toutes les commandes');
 });
 
 client.initialize();
