@@ -11,24 +11,63 @@ const app = express();
 // Configuration WhatsApp Business (votre numéro principal)
 const BUSINESS_WHATSAPP = "+237686577791"; // Votre numéro WhatsApp Business
 
-// Données de qualification
+// Données de qualification - PRIX CORRECTS
 const services = {
     '1': {
         name: 'Site web professionnel',
-        budgets: ['150K - 250K FCFA', '250K - 500K FCFA', '500K - 600K FCFA'],
+        budgets: ['150K - 250K FCFA', '250K - 450K FCFA', '450K - 600K FCFA'],
         types: ['Site vitrine', 'Site e-commerce', 'Application web']
     },
     '2': {
         name: 'Solutions IA et automatisation',
-        budgets: ['400K - 600K FCFA', '600K - 1.2M FCFA', '1.2M - 3.5M FCFA'],
-        types: ['Chatbot simple', 'Automatisation métier', 'IA conversationnelle']
+        budgets: ['400K - 800K FCFA', '800K - 1.8M FCFA', '1.8M - 3.5M FCFA'],
+        types: ['Chatbot simple', 'Automatisation métier', 'IA conversationnelle complète']
     },
     '3': {
         name: 'Marketing digital',
         budgets: ['150K - 300K FCFA', '300K - 600K FCFA', '600K+ FCFA'],
-        types: ['Meta Ads', 'SEO', 'Stratégie complète']
+        types: ['Meta Ads', 'SEO et référencement', 'Stratégie digitale complète']
     }
 };
+
+// Fonction de détection intelligente des réponses
+function parseUserChoice(text) {
+    const normalized = text.toLowerCase().trim();
+    
+    // Mappings pour tous les formats possibles
+    const choiceMap = {
+        // Chiffres
+        '1': '1', '2': '2', '3': '3', '4': '4',
+        // Lettres françaises
+        'un': '1', 'une': '1', 'premier': '1', 'première': '1', 'a': '1',
+        'deux': '2', 'deuxième': '2', 'second': '2', 'seconde': '2', 'b': '2',
+        'trois': '3', 'troisième': '3', 'c': '3',
+        'quatre': '4', 'quatrième': '4', 'd': '4',
+        // Lettres anglaises
+        'one': '1', 'first': '1',
+        'two': '2', 'second': '2',
+        'three': '3', 'third': '3',
+        'four': '4', 'fourth': '4',
+        // Chiffres romains
+        'i': '1', 'ii': '2', 'iii': '3', 'iv': '4',
+        // Autres variations
+        '1er': '1', '1ère': '1', '2ème': '2', '3ème': '3', '4ème': '4'
+    };
+    
+    // Recherche directe
+    if (choiceMap[normalized]) {
+        return choiceMap[normalized];
+    }
+    
+    // Recherche par mots-clés dans le texte
+    for (const [key, value] of Object.entries(choiceMap)) {
+        if (normalized.includes(key)) {
+            return value;
+        }
+    }
+    
+    return null;
+}
 
 // Stockage des conversations
 let conversations = {};
@@ -82,9 +121,12 @@ client.on('ready', () => {
 // Gestion des messages
 client.on('message', async (message) => {
     if (message.from.includes('@g.us')) return; // Ignorer les groupes
+    if (message.fromMe) return; // Ignorer nos propres messages
     
     const phoneNumber = message.from;
     const messageText = message.body.trim();
+    
+    console.log(`📨 Message reçu de ${phoneNumber}: "${messageText}"`);
     
     // Initialiser la conversation si nécessaire
     if (!conversations[phoneNumber]) {
@@ -93,6 +135,7 @@ client.on('message', async (message) => {
             data: {},
             timestamp: new Date()
         };
+        console.log(`🆕 Nouvelle conversation initiée pour ${phoneNumber}`);
     }
     
     await handleConversation(phoneNumber, messageText, message);
@@ -133,31 +176,43 @@ async function handleConversation(phoneNumber, messageText, message) {
 
 // Accueil
 async function handleAccueil(phoneNumber, messageText, message) {
-    if (messageText.toLowerCase().includes('recommencer') || !conversations[phoneNumber].data.service) {
+    // Vérifier si c'est un redémarrage
+    if (messageText.toLowerCase().includes('recommencer') || messageText.toLowerCase().includes('restart')) {
         await sendWelcomeMessage(phoneNumber);
         return;
     }
     
-    const serviceChoice = messageText.trim();
+    // Si pas encore de service sélectionné, envoyer le message d'accueil
+    if (!conversations[phoneNumber].data.service) {
+        await sendWelcomeMessage(phoneNumber);
+        return;
+    }
     
-    if (services[serviceChoice]) {
+    // Détecter le choix du service avec reconnaissance intelligente
+    const serviceChoice = parseUserChoice(messageText);
+    
+    if (serviceChoice && services[serviceChoice]) {
         conversations[phoneNumber].data.service = serviceChoice;
         conversations[phoneNumber].step = 'service_details';
         
         const service = services[serviceChoice];
         const options = service.types.map((type, index) => `${index + 1}️⃣ ${type}`).join('\n');
         
+        console.log(`✅ Service sélectionné: ${service.name} pour ${phoneNumber}`);
+        
         await client.sendMessage(phoneNumber, 
-            `Excellent ! Vous vous intéressez à : *${service.name}*\n\n` +
+            `Parfait ! Vous vous intéressez à : *${service.name}*\n\n` +
             `Quel type de projet vous intéresse le plus ?\n\n${options}\n\n` +
-            `Répondez simplement par le numéro de votre choix.`
+            `Répondez par le numéro correspondant (1, 2 ou 3).`
         );
     } else {
+        console.log(`❌ Choix non reconnu: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Merci pour votre réponse. Pourriez-vous choisir un numéro entre 1 et 3 ?\n\n` +
+            `Je n'ai pas compris votre choix. Merci de sélectionner un numéro :\n\n` +
             `1️⃣ Site web professionnel\n` +
             `2️⃣ Solutions IA et automatisation\n` +
-            `3️⃣ Marketing digital`
+            `3️⃣ Marketing digital\n\n` +
+            `Vous pouvez répondre par "1", "un", "premier", etc.`
         );
     }
 }
@@ -166,24 +221,30 @@ async function handleAccueil(phoneNumber, messageText, message) {
 async function handleServiceDetails(phoneNumber, messageText, message) {
     const conv = conversations[phoneNumber];
     const serviceChoice = conv.data.service;
-    const typeChoice = parseInt(messageText.trim());
+    const typeChoice = parseUserChoice(messageText);
     
-    if (typeChoice >= 1 && typeChoice <= 3) {
-        conv.data.serviceType = services[serviceChoice].types[typeChoice - 1];
+    if (typeChoice && typeChoice >= '1' && typeChoice <= '3') {
+        const typeIndex = parseInt(typeChoice) - 1;
+        conv.data.serviceType = services[serviceChoice].types[typeIndex];
         conv.step = 'budget';
         
         const budgetOptions = services[serviceChoice].budgets.map((budget, index) => 
             `${index + 1}️⃣ ${budget}`
         ).join('\n');
         
+        console.log(`✅ Type de service sélectionné: ${conv.data.serviceType} pour ${phoneNumber}`);
+        
         await client.sendMessage(phoneNumber, 
             `Parfait ! Vous souhaitez : *${conv.data.serviceType}*\n\n` +
             `Quel est votre budget envisagé pour ce projet ?\n\n${budgetOptions}\n\n` +
-            `Répondez par le numéro correspondant.`
+            `Répondez par le numéro correspondant (1, 2 ou 3).`
         );
     } else {
+        console.log(`❌ Type non reconnu: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Merci de choisir un numéro entre 1 et 3 pour préciser votre besoin.`
+            `Je n'ai pas compris votre choix. Merci de sélectionner un numéro entre 1 et 3 :\n\n` +
+            `${services[serviceChoice].types.map((type, index) => `${index + 1}️⃣ ${type}`).join('\n')}\n\n` +
+            `Vous pouvez répondre par "1", "deux", "third", etc.`
         );
     }
 }
@@ -192,11 +253,14 @@ async function handleServiceDetails(phoneNumber, messageText, message) {
 async function handleBudget(phoneNumber, messageText, message) {
     const conv = conversations[phoneNumber];
     const serviceChoice = conv.data.service;
-    const budgetChoice = parseInt(messageText.trim());
+    const budgetChoice = parseUserChoice(messageText);
     
-    if (budgetChoice >= 1 && budgetChoice <= 3) {
-        conv.data.budget = services[serviceChoice].budgets[budgetChoice - 1];
+    if (budgetChoice && budgetChoice >= '1' && budgetChoice <= '3') {
+        const budgetIndex = parseInt(budgetChoice) - 1;
+        conv.data.budget = services[serviceChoice].budgets[budgetIndex];
         conv.step = 'autorite';
+        
+        console.log(`✅ Budget sélectionné: ${conv.data.budget} pour ${phoneNumber}`);
         
         await client.sendMessage(phoneNumber, 
             `Très bien ! Budget retenu : *${conv.data.budget}*\n\n` +
@@ -206,8 +270,11 @@ async function handleBudget(phoneNumber, messageText, message) {
             `3️⃣ Je collecte des informations pour mon équipe`
         );
     } else {
+        console.log(`❌ Budget non reconnu: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Merci de choisir un numéro entre 1 et 3 pour votre fourchette budgétaire.`
+            `Je n'ai pas compris votre choix de budget. Merci de sélectionner :\n\n` +
+            `${services[serviceChoice].budgets.map((budget, index) => `${index + 1}️⃣ ${budget}`).join('\n')}\n\n` +
+            `Vous pouvez répondre par "1", "deux", "third", etc.`
         );
     }
 }
@@ -215,24 +282,33 @@ async function handleBudget(phoneNumber, messageText, message) {
 // Autorité
 async function handleAutorite(phoneNumber, messageText, message) {
     const conv = conversations[phoneNumber];
-    const autoriteChoice = parseInt(messageText.trim());
+    const autoriteChoice = parseUserChoice(messageText);
     
-    if (autoriteChoice >= 1 && autoriteChoice <= 3) {
+    if (autoriteChoice && autoriteChoice >= '1' && autoriteChoice <= '3') {
         const autoriteLabels = ['Décideur principal', 'Participant décision', 'Collecteur information'];
-        conv.data.autorite = autoriteLabels[autoriteChoice - 1];
+        const autoriteIndex = parseInt(autoriteChoice) - 1;
+        conv.data.autorite = autoriteLabels[autoriteIndex];
         conv.step = 'timeline';
+        
+        console.log(`✅ Autorité sélectionnée: ${conv.data.autorite} pour ${phoneNumber}`);
         
         await client.sendMessage(phoneNumber, 
             `Noté ! Profil : *${conv.data.autorite}*\n\n` +
             `Dans quel délai souhaiteriez-vous voir ce projet se concrétiser ?\n\n` +
-            `1️⃣ Dans les 3 prochains mois\n` +
-            `2️⃣ Dans les 6 prochains mois\n` +
-            `3️⃣ Plus tard dans l'année\n` +
-            `4️⃣ Pas de délai précis`
+            `1️⃣ 1 mois (Turbo +20%)\n` +
+            `2️⃣ 2-3 mois (Standard)\n` +
+            `3️⃣ 4-6 mois\n` +
+            `4️⃣ Plus tard dans l'année\n` +
+            `5️⃣ Pas de délai précis`
         );
     } else {
+        console.log(`❌ Autorité non reconnue: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Merci de choisir un numéro entre 1 et 3 pour préciser votre rôle.`
+            `Je n'ai pas compris votre rôle. Merci de sélectionner :\n\n` +
+            `1️⃣ Oui, je suis le décideur principal\n` +
+            `2️⃣ Je participe à la décision\n` +
+            `3️⃣ Je collecte des informations pour mon équipe\n\n` +
+            `Vous pouvez répondre par "1", "oui", "first", etc.`
         );
     }
 }
@@ -240,16 +316,19 @@ async function handleAutorite(phoneNumber, messageText, message) {
 // Timeline
 async function handleTimeline(phoneNumber, messageText, message) {
     const conv = conversations[phoneNumber];
-    const timelineChoice = parseInt(messageText.trim());
+    const timelineChoice = parseUserChoice(messageText);
     
-    if (timelineChoice >= 1 && timelineChoice <= 4) {
-        const timelineLabels = ['3 mois', '6 mois', 'Plus tard', 'Pas de délai'];
-        conv.data.timeline = timelineLabels[timelineChoice - 1];
+    if (timelineChoice && timelineChoice >= '1' && timelineChoice <= '5') {
+        const timelineLabels = ['1 mois', '2-3 mois', '4-6 mois', 'Plus tard', 'Pas de délai précis'];
+        const timelineIndex = parseInt(timelineChoice) - 1;
+        conv.data.timeline = timelineLabels[timelineIndex];
         conv.step = 'finalisation';
         
         // Calculer le score
         const score = calculateScore(conv.data);
         conv.data.score = score;
+        
+        console.log(`✅ Qualification terminée pour ${phoneNumber} - Score: ${score}/100`);
         
         // Sauvegarder le prospect
         saveProspect(phoneNumber, conv.data);
@@ -265,8 +344,15 @@ async function handleTimeline(phoneNumber, messageText, message) {
         };
         
     } else {
+        console.log(`❌ Délai non reconnu: "${messageText}" de ${phoneNumber}`);
         await client.sendMessage(phoneNumber, 
-            `Merci de choisir un numéro entre 1 et 4 pour le délai.`
+            `Je n'ai pas compris votre délai. Merci de choisir un numéro :\n\n` +
+            `1️⃣ 1 mois (Turbo +20%)\n` +
+            `2️⃣ 2-3 mois (Standard)\n` +
+            `3️⃣ 4-6 mois\n` +
+            `4️⃣ Plus tard dans l'année\n` +
+            `5️⃣ Pas de délai précis\n\n` +
+            `Vous pouvez répondre par "1", "un", "premier", etc.`
         );
     }
 }
@@ -279,14 +365,17 @@ async function sendWelcomeMessage(phoneNumber) {
         timestamp: new Date()
     };
     
+    console.log(`🤖 Envoi du message d'accueil à ${phoneNumber}`);
+    
     await client.sendMessage(phoneNumber, 
-        `Bonjour ! Je suis l'assistant virtuel de *SmartScale WebTech*.\n\n` +
-        `Je vais vous poser quelques questions pour mieux comprendre votre projet et vous orienter vers la meilleure solution.\n\n` +
+        `Bonjour ! Je suis l'assistant *SmartScale WebTech*.\n\n` +
+        `Je vais vous qualifier rapidement pour vous orienter vers notre équipe commerciale.\n\n` +
         `Quel est votre principal besoin ?\n\n` +
         `1️⃣ Site web professionnel\n` +
         `2️⃣ Solutions IA et automatisation\n` +
         `3️⃣ Marketing digital\n\n` +
-        `Répondez simplement par le numéro de votre choix.`
+        `Répondez par le numéro de votre choix.\n` +
+        `(Vous pouvez dire "1", "un", "premier", "one", etc.)`
     );
 }
 
@@ -315,9 +404,10 @@ function calculateScore(data) {
     else if (data.autorite === 'Participant décision') score += 15;
     else score += 5;
     
-    // Score basé sur la timeline (Timeline)
-    if (data.timeline === '3 mois') score += 20;
-    else if (data.timeline === '6 mois') score += 15;
+    // Score basé sur la timeline (Timeline) - DÉLAIS CORRECTS
+    if (data.timeline === '1 mois') score += 25; // Turbo = meilleur score
+    else if (data.timeline === '2-3 mois') score += 20; // Standard
+    else if (data.timeline === '4-6 mois') score += 15;
     else if (data.timeline === 'Plus tard') score += 10;
     else score += 5;
     
