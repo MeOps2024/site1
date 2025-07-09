@@ -84,7 +84,7 @@ export default function AISection() {
                   Devis
                 </a>
                 <a 
-                  href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20vos%20Chatbots%20Intelligents.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+                  href="https://wa.me/237681719132?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20vos%20Chatbots%20Intelligents.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
                   target="_blank"
                   onClick={() => {
                     if (window.fbq) {
@@ -144,7 +144,7 @@ export default function AISection() {
                   Devis
                 </a>
                 <a 
-                  href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Intégration%20Multi-Canaux.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+                  href="https://wa.me/237681719132?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Intégration%20Multi-Canaux.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
                   target="_blank"
                   onClick={() => {
                     if (window.fbq) {
@@ -204,7 +204,7 @@ export default function AISection() {
                   Devis
                 </a>
                 <a 
-                  href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Automatisation%20Métier.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+                  href="https://wa.me/237681719132?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Automatisation%20Métier.%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
                   target="_blank"
                   onClick={() => {
                     if (window.fbq) {

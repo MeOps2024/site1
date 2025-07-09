@@ -80,7 +80,7 @@ export default function LeadCapture() {
   };
 
   const submitLead = () => {
-    const phoneNumber = "+237686577791";
+    const phoneNumber = "+237681719132";
     const message = `🎯 LEAD QUALIFIÉ - SmartScale WebTech
 
 🔹 Service: ${services.find(s => s.id === leadData.service)?.name}
@@ -90,7 +90,7 @@ export default function LeadCapture() {
 
 Je souhaite discuter de mon projet et obtenir un devis personnalisé.`;
 
-    window.open(`https://wa.me/237686577791?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/237681719132?text=${encodeURIComponent(message)}`, '_blank');
     
     // Track final conversion - PURCHASE EVENT
     trackEvent({

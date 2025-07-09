@@ -146,7 +146,7 @@ Merci !`;
 
   const openWhatsApp = () => {
     const message = generateWhatsAppMessage();
-    window.open(`https://wa.me/237686577791?text=${message}`, '_blank');
+    window.open(`https://wa.me/237681719132?text=${message}`, '_blank');
     
     // Track WhatsApp contact - CONVERSION FINALE
     trackEvent({

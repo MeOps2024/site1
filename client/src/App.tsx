@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import HomePage from "@/pages/HomePage";
 import QuoteCalculator from "@/pages/QuoteCalculator";
 import LeadCapture from "@/pages/LeadCapture";
+import PolitiqueConfidentialite from "@/pages/PolitiqueConfidentialite";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import { initGA } from "./lib/analytics";
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/" component={HomePage} />
       <Route path="/devis" component={QuoteCalculator} />
       <Route path="/lead" component={LeadCapture} />
+      <Route path="/politique-confidentialite" component={PolitiqueConfidentialite} />
       <Route component={NotFound} />
     </Switch>
   );

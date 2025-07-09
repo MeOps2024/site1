@@ -40,7 +40,7 @@ function StaticApp() {
       {/* WhatsApp Float Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <a 
-          href="https://wa.me/237686577791?text=Bonjour, je souhaite obtenir des informations sur vos services web." 
+          href="https://wa.me/237681719132?text=Bonjour, je souhaite obtenir des informations sur vos services web." 
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110"

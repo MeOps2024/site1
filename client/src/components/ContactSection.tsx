@@ -145,7 +145,7 @@ export default function ContactSection() {
                   <div>
                     <div className="font-semibold">Téléphone</div>
                     <a 
-                      href="tel:+237686577791" 
+                      href="tel:+237681719132" 
                       className="text-blue-100 hover:text-white transition-colors"
                       onClick={() => handleContactClick('phone')}
                     >
@@ -202,7 +202,7 @@ export default function ContactSection() {
               <h4 className="font-bold text-neutral-800">Actions rapides</h4>
               <div className="flex flex-col space-y-3">
                 <a 
-                  href="tel:+237686577791" 
+                  href="tel:+237681719132" 
                   className="flex items-center space-x-3 p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors"
                   onClick={() => handleContactClick('phone_direct')}
                 >

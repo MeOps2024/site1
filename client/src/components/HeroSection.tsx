@@ -48,12 +48,12 @@ export default function HeroSection() {
                 <i className="fas fa-arrow-right"></i>
               </button>
               <a 
-                href="tel:+237686577791" 
+                href="tel:+237681719132" 
                 onClick={handlePhoneClick}
                 className="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-semibold hover:bg-white/30 transition-all duration-300 text-center inline-flex items-center justify-center space-x-2"
               >
                 <i className="fas fa-phone"></i>
-                <span>+237 686 577 791</span>
+                <span>+237 681 719 132</span>
               </a>
             </div>
             

@@ -64,7 +64,7 @@ export default function ServicesSection() {
             
             <div className="text-2xl font-bold text-blue-600 mb-4">150 000 - 250 000 FCFA</div>
             <a 
-              href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Présence%20Digitale%20Automatisée%20(150-250K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+              href="https://wa.me/237681719132?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Présence%20Digitale%20Automatisée%20(150-250K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
               target="_blank"
               onClick={() => {
                 if (window.fbq) {
@@ -114,7 +114,7 @@ export default function ServicesSection() {
             
             <div className="text-2xl font-bold text-blue-600 mb-4">250 000 - 350 000 FCFA</div>
             <a 
-              href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Boutique%20Intelligente%20(250-350K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+              href="https://wa.me/237681719132?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Boutique%20Intelligente%20(250-350K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
               target="_blank"
               onClick={() => {
                 if (window.fbq) {
@@ -168,7 +168,7 @@ export default function ServicesSection() {
             
             <div className="text-2xl font-bold text-blue-600 mb-4">400 000 - 600 000 FCFA</div>
             <a 
-              href="https://wa.me/237686577791?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Conquête%20Digitale%20Code+%20(400-600K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
+              href="https://wa.me/237681719132?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20votre%20Pack%20Conquête%20Digitale%20Code+%20(400-600K%20FCFA).%20Pouvez-vous%20me%20donner%20plus%20d'informations%20?"
               target="_blank"
               onClick={() => {
                 if (window.fbq) {

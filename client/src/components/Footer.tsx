@@ -93,8 +93,8 @@ export default function Footer() {
             <div className="space-y-3 text-neutral-400">
               <div className="flex items-center space-x-2">
                 <i className="fas fa-phone text-sm"></i>
-                <a href="tel:+237686577791" className="hover:text-white transition-colors">
-                  +237 686 577 791
+                <a href="tel:+237681719132" className="hover:text-white transition-colors">
+                  +237 681 719 132
                 </a>
               </div>
               <div className="flex items-center space-x-2">
@@ -117,7 +117,7 @@ export default function Footer() {
               © 2024 SmartScale WebTech. Tous droits réservés.
             </div>
             <div className="flex space-x-6 text-neutral-400 text-sm">
-              <a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a>
+              <a href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</a>
               <a href="#" className="hover:text-white transition-colors">Conditions d'utilisation</a>
               <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
             </div>
